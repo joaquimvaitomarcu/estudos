@@ -45,7 +45,7 @@
 </head>
 <body class="min-h-screen pb-12">
 
-    <!-- Top Header -->
+    <!-- Header Superior -->
     <header class="bg-indigo-600 text-white p-4 sticky top-0 z-50 shadow-md flex justify-between items-center">
         <h1 class="text-lg font-bold flex items-center gap-2">
             <i class="fa-solid fa-graduation-cap"></i> Meu Painel de Estudos
@@ -154,7 +154,6 @@
             const themeToggle = document.getElementById('themeToggle');
             const themeIcon = document.getElementById('themeIcon');
             
-            // Carregar tema salvo
             if (localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark-mode');
                 themeIcon.className = 'fa-solid fa-sun text-amber-400';
@@ -275,7 +274,6 @@
                     logsList.innerHTML = '<p class="text-xs subtext italic">Nenhuma sessão registrada.</p>';
                 }
 
-                // Atualizar estatísticas
                 document.getElementById('statHours').textContent = `${(totalMin / 60).toFixed(1)}h`;
                 document.getElementById('statStreak').textContent = `${logs.length > 0 ? 1 : 0} 🔥`;
             }
@@ -307,7 +305,7 @@
                 }
             });
 
-            // --- TAREFAS (TO-DO / KANBAN) ---
+            // --- TAREFAS (TO-DO) ---
             const taskForm = document.getElementById('taskForm');
             const taskInput = document.getElementById('taskInput');
             const taskList = document.getElementById('taskList');
