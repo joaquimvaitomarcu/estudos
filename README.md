@@ -64,7 +64,7 @@
             <h1 class="text-base font-bold flex items-center gap-2">
                 <i class="fa-solid fa-graduation-cap text-xl"></i> Meu Painel de Estudos
             </h1>
-            <button id="themeToggle" class="p-2.5 rounded-2xl bg-black/30 hover:bg-black/40 transition active:scale-95">
+            <button id="themeToggle" type="button" class="p-2.5 rounded-2xl bg-black/30 hover:bg-black/40 transition active:scale-95">
                 <i class="fa-solid fa-sun text-amber-300 text-base" id="themeIcon"></i>
             </button>
         </header>
@@ -72,7 +72,7 @@
 
     <main class="max-w-md mx-auto p-4 space-y-4">
 
-        <!-- 1. ESTATÍSTICAS E META -->
+        <!-- ESTATÍSTICAS E META -->
         <section class="card p-5 shadow-sm space-y-4">
             <h2 class="text-xs font-semibold subtext uppercase tracking-wider flex items-center gap-2">
                 <i class="fa-solid fa-chart-line text-emerald-500"></i> Progresso Geral
@@ -103,23 +103,22 @@
             </div>
         </section>
 
-        <!-- 2. PORCENTAGEM DE ESTUDO POR MATÉRIA -->
+        <!-- PORCENTAGEM DE ESTUDO POR MATÉRIA -->
         <section class="card p-5 shadow-sm space-y-3">
             <h2 class="text-xs font-semibold subtext uppercase tracking-wider flex items-center gap-2">
                 <i class="fa-solid fa-chart-pie text-emerald-500"></i> Divisão por Matéria
             </h2>
             <div id="subjectPercentages" class="space-y-3">
-                <!-- Porcentagens calculadas entram aqui -->
+                <p class="text-xs subtext italic">Registre sessões para ver a porcentagem por matéria.</p>
             </div>
         </section>
 
-        <!-- 3. TEMPORIZADOR VINCULADO À MATÉRIA -->
+        <!-- CRONÔMETRO DE ESTUDO -->
         <section class="card p-5 shadow-sm text-center space-y-3">
             <h2 class="text-xs font-semibold subtext uppercase tracking-wider flex items-center justify-center gap-2">
                 <i class="fa-solid fa-stopwatch text-emerald-500"></i> Cronômetro de Estudo
             </h2>
 
-            <!-- Campos para Vincular Matéria ao Cronômetro -->
             <div class="space-y-2 text-left">
                 <input type="text" id="timerSubject" placeholder="Matéria (ex: Matemática)" class="w-full p-3 input-field text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500">
                 <input type="text" id="timerTopic" placeholder="Assunto (ex: Trigonometria)" class="w-full p-3 input-field text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500">
@@ -130,28 +129,28 @@
             <div class="text-5xl font-extrabold my-2 font-mono text-emerald-400 tracking-tight" id="timerDisplay">25:00</div>
 
             <div class="flex justify-center gap-2 mb-2">
-                <button id="startBtn" class="btn-army font-semibold px-5 py-3 rounded-2xl transition flex items-center gap-2 shadow-md active:scale-95 text-xs">
+                <button id="startBtn" type="button" class="btn-army font-semibold px-5 py-3 rounded-2xl transition flex items-center gap-2 shadow-md active:scale-95 text-xs">
                     <i class="fa-solid fa-play"></i> Iniciar
                 </button>
-                <button id="pauseBtn" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-5 py-3 rounded-2xl transition hidden flex items-center gap-2 shadow-md active:scale-95 text-xs">
+                <button id="pauseBtn" type="button" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-5 py-3 rounded-2xl transition hidden flex items-center gap-2 shadow-md active:scale-95 text-xs">
                     <i class="fa-solid fa-pause"></i> Pausar
                 </button>
-                <button id="finishBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-3 rounded-2xl transition flex items-center gap-1.5 shadow-md active:scale-95 text-xs">
+                <button id="finishBtn" type="button" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-3 rounded-2xl transition flex items-center gap-1.5 shadow-md active:scale-95 text-xs">
                     <i class="fa-solid fa-check"></i> Salvar
                 </button>
-                <button id="resetBtn" class="input-field px-4 py-3 rounded-2xl transition active:scale-95 text-xs">
+                <button id="resetBtn" type="button" class="input-field px-4 py-3 rounded-2xl transition active:scale-95 text-xs">
                     <i class="fa-solid fa-rotate-left"></i>
                 </button>
             </div>
 
             <div class="grid grid-cols-3 gap-2 text-xs pt-1">
-                <button id="modePomodoro" class="py-2.5 btn-army font-semibold rounded-2xl">Foco (25m)</button>
-                <button id="modeShort" class="py-2.5 input-field rounded-2xl font-medium">Pausa (5m)</button>
-                <button id="modeLong" class="py-2.5 input-field rounded-2xl font-medium">Pausa (15m)</button>
+                <button id="modePomodoro" type="button" class="py-2.5 btn-army font-semibold rounded-2xl">Foco (25m)</button>
+                <button id="modeShort" type="button" class="py-2.5 input-field rounded-2xl font-medium">Pausa (5m)</button>
+                <button id="modeLong" type="button" class="py-2.5 input-field rounded-2xl font-medium">Pausa (15m)</button>
             </div>
         </section>
 
-        <!-- 4. REGISTRO MANUAL DE SESSÃO -->
+        <!-- REGISTRO MANUAL DE SESSÃO -->
         <section class="card p-5 shadow-sm">
             <h2 class="text-xs font-semibold subtext uppercase tracking-wider mb-3 flex items-center gap-2">
                 <i class="fa-solid fa-plus-circle text-emerald-500"></i> Registro Manual
@@ -166,7 +165,7 @@
             </form>
         </section>
 
-        <!-- 5. QUADRO DE TAREFAS -->
+        <!-- QUADRO DE TAREFAS -->
         <section class="card p-5 shadow-sm">
             <h2 class="text-xs font-semibold subtext uppercase tracking-wider mb-3 flex items-center gap-2">
                 <i class="fa-solid fa-list-check text-emerald-500"></i> Tópicos a Estudar
@@ -178,44 +177,48 @@
                 </button>
             </form>
             <div id="taskList" class="space-y-2 max-h-48 overflow-y-auto">
-                <!-- Tarefas entram aqui -->
+                <p class="text-xs subtext italic">Nenhuma tarefa pendente.</p>
             </div>
         </section>
 
-        <!-- 6. HISTÓRICO RECENTE -->
+        <!-- HISTÓRICO RECENTE -->
         <section class="card p-5 shadow-sm">
             <div class="flex justify-between items-center mb-3">
                 <h2 class="text-xs font-semibold subtext uppercase tracking-wider flex items-center gap-2">
                     <i class="fa-solid fa-history text-emerald-500"></i> Histórico Recente
                 </h2>
-                <button id="clearLogsBtn" class="text-xs text-rose-400 hover:underline">Limpar</button>
+                <button id="clearLogsBtn" type="button" class="text-xs text-rose-400 hover:underline">Limpar</button>
             </div>
             <div id="logsList" class="space-y-2 max-h-52 overflow-y-auto">
-                <!-- Histórico entra aqui -->
+                <p class="text-xs subtext italic">Nenhuma sessão registrada.</p>
             </div>
         </section>
 
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        (function() {
             // --- TEMA ESCURO / CLARO ---
             const themeToggle = document.getElementById('themeToggle');
             const themeIcon = document.getElementById('themeIcon');
             
             if (localStorage.getItem('theme') === 'light') {
                 document.body.classList.add('light-mode');
-                themeIcon.className = 'fa-solid fa-moon text-slate-100 text-base';
+                if (themeIcon) themeIcon.className = 'fa-solid fa-moon text-slate-100 text-base';
             }
 
-            themeToggle.addEventListener('click', () => {
-                document.body.classList.toggle('light-mode');
-                const isLight = document.body.classList.contains('light-mode');
-                localStorage.setItem('theme', isLight ? 'light' : 'dark');
-                themeIcon.className = isLight ? 'fa-solid fa-moon text-slate-100 text-base' : 'fa-solid fa-sun text-amber-300 text-base';
-            });
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    document.body.classList.toggle('light-mode');
+                    const isLight = document.body.classList.contains('light-mode');
+                    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+                    if (themeIcon) {
+                        themeIcon.className = isLight ? 'fa-solid fa-moon text-slate-100 text-base' : 'fa-solid fa-sun text-amber-300 text-base';
+                    }
+                });
+            }
 
-            // --- TEMPORIZADOR INTEGRADO ---
+            // --- CRONÔMETRO DE ESTUDO ---
             let timer = null;
             let currentModeTime = 25 * 60;
             let timeLeft = currentModeTime;
@@ -237,6 +240,7 @@
             const modeLong = document.getElementById('modeLong');
 
             function updateDisplay() {
+                if (!display) return;
                 const minutes = Math.floor(timeLeft / 60);
                 const seconds = timeLeft % 60;
                 display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
@@ -248,91 +252,98 @@
                 currentModeTime = seconds;
                 timeLeft = seconds;
                 elapsedTimeSeconds = 0;
-                statusText.textContent = title.toUpperCase();
+                if (statusText) statusText.textContent = title.toUpperCase();
                 updateDisplay();
                 
-                pauseBtn.classList.add('hidden');
-                startBtn.classList.remove('hidden');
+                if (pauseBtn) pauseBtn.classList.add('hidden');
+                if (startBtn) startBtn.classList.remove('hidden');
 
                 [modePomodoro, modeShort, modeLong].forEach(btn => {
-                    btn.className = "py-2.5 input-field rounded-2xl font-medium";
+                    if (btn) btn.className = "py-2.5 input-field rounded-2xl font-medium";
                 });
-                activeBtn.className = "py-2.5 btn-army font-semibold rounded-2xl";
+                if (activeBtn) activeBtn.className = "py-2.5 btn-army font-semibold rounded-2xl";
             }
 
-            modePomodoro.addEventListener('click', () => setMode(25 * 60, 'Modo Foco', modePomodoro));
-            modeShort.addEventListener('click', () => setMode(5 * 60, 'Pausa Curta', modeShort));
-            modeLong.addEventListener('click', () => setMode(15 * 60, 'Pausa Longa', modeLong));
+            if (modePomodoro) modePomodoro.addEventListener('click', () => setMode(25 * 60, 'Modo Foco', modePomodoro));
+            if (modeShort) modeShort.addEventListener('click', () => setMode(5 * 60, 'Pausa Curta', modeShort));
+            if (modeLong) modeLong.addEventListener('click', () => setMode(15 * 60, 'Pausa Longa', modeLong));
 
-            startBtn.addEventListener('click', () => {
-                if (!isRunning) {
-                    isRunning = true;
-                    startBtn.classList.add('hidden');
-                    pauseBtn.classList.remove('hidden');
-                    
-                    timer = setInterval(() => {
-                        if (timeLeft > 0) {
-                            timeLeft--;
-                            elapsedTimeSeconds++;
-                            updateDisplay();
-                        } else {
-                            clearInterval(timer);
-                            isRunning = false;
-                            alert('Tempo concluído!');
-                            saveTimerSession();
-                            startBtn.classList.remove('hidden');
-                            pauseBtn.classList.add('hidden');
-                        }
-                    }, 1000);
-                }
-            });
+            if (startBtn) {
+                startBtn.addEventListener('click', () => {
+                    if (!isRunning) {
+                        isRunning = true;
+                        startBtn.classList.add('hidden');
+                        if (pauseBtn) pauseBtn.classList.remove('hidden');
+                        
+                        timer = setInterval(() => {
+                            if (timeLeft > 0) {
+                                timeLeft--;
+                                elapsedTimeSeconds++;
+                                updateDisplay();
+                            } else {
+                                clearInterval(timer);
+                                isRunning = false;
+                                alert('Tempo concluído!');
+                                saveTimerSession();
+                                startBtn.classList.remove('hidden');
+                                if (pauseBtn) pauseBtn.classList.add('hidden');
+                            }
+                        }, 1000);
+                    }
+                });
+            }
 
-            pauseBtn.addEventListener('click', () => {
-                clearInterval(timer);
-                isRunning = false;
-                pauseBtn.classList.add('hidden');
-                startBtn.classList.remove('hidden');
-            });
+            if (pauseBtn) {
+                pauseBtn.addEventListener('click', () => {
+                    clearInterval(timer);
+                    isRunning = false;
+                    pauseBtn.classList.add('hidden');
+                    if (startBtn) startBtn.classList.remove('hidden');
+                });
+            }
 
-            resetBtn.addEventListener('click', () => {
-                clearInterval(timer);
-                isRunning = false;
-                timeLeft = currentModeTime;
-                elapsedTimeSeconds = 0;
-                updateDisplay();
-                pauseBtn.classList.add('hidden');
-                startBtn.classList.remove('hidden');
-            });
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    clearInterval(timer);
+                    isRunning = false;
+                    timeLeft = currentModeTime;
+                    elapsedTimeSeconds = 0;
+                    updateDisplay();
+                    if (pauseBtn) pauseBtn.classList.add('hidden');
+                    if (startBtn) startBtn.classList.remove('hidden');
+                });
+            }
 
-            finishBtn.addEventListener('click', () => {
-                if (elapsedTimeSeconds < 10) {
-                    alert('Estude pelo menos alguns minutos para registrar a sessão!');
-                    return;
-                }
-                saveTimerSession();
-            });
+            if (finishBtn) {
+                finishBtn.addEventListener('click', () => {
+                    if (elapsedTimeSeconds < 10) {
+                        alert('Estude ao menos alguns segundos para salvar a sessão!');
+                        return;
+                    }
+                    saveTimerSession();
+                });
+            }
 
             function saveTimerSession() {
-                const subject = timerSubject.value.trim() || 'Estudo Geral';
-                const topic = timerTopic.value.trim() || 'Sessão com Cronômetro';
+                const subject = (timerSubject && timerSubject.value.trim()) ? timerSubject.value.trim() : 'Estudo Geral';
+                const topic = (timerTopic && timerTopic.value.trim()) ? timerTopic.value.trim() : 'Sessão com Cronômetro';
                 const minutes = Math.max(1, Math.round(elapsedTimeSeconds / 60));
 
                 saveStudyLog(subject, topic, minutes);
 
-                // Resetar timer
                 clearInterval(timer);
                 isRunning = false;
                 timeLeft = currentModeTime;
                 elapsedTimeSeconds = 0;
                 updateDisplay();
-                pauseBtn.classList.add('hidden');
-                startBtn.classList.remove('hidden');
+                if (pauseBtn) pauseBtn.classList.add('hidden');
+                if (startBtn) startBtn.classList.remove('hidden');
 
-                timerSubject.value = '';
-                timerTopic.value = '';
+                if (timerSubject) timerSubject.value = '';
+                if (timerTopic) timerTopic.value = '';
             }
 
-            // --- SALVAMENTO E CARREGAMENTO DE DADOS ---
+            // --- REGISTRO DE DADOS E NAVEGAÇÃO ---
             const studyForm = document.getElementById('studyForm');
             const logsList = document.getElementById('logsList');
             const subjectPercentages = document.getElementById('subjectPercentages');
@@ -347,6 +358,7 @@
 
             function loadData() {
                 const logs = JSON.parse(localStorage.getItem('studyLogs') || '[]');
+                if (!logsList) return;
                 logsList.innerHTML = '';
                 
                 let totalMin = 0;
@@ -380,27 +392,12 @@
                     logsList.innerHTML = '<p class="text-xs subtext italic">Nenhuma sessão registrada.</p>';
                 }
 
-                document.getElementById('statHours').textContent = `${(totalMin / 60).toFixed(1)}h`;
-                document.getElementById('statStreak').textContent = `${logs.length > 0 ? 1 : 0} 🔥`;
+                const statHours = document.getElementById('statHours');
+                const statStreak = document.getElementById('statStreak');
+                if (statHours) statHours.textContent = `${(totalMin / 60).toFixed(1)}h`;
+                if (statStreak) statStreak.textContent = `${logs.length > 0 ? 1 : 0} 🔥`;
 
                 renderSubjectPercentages(subjectTotals, totalMin);
             }
 
-            function renderSubjectPercentages(subjectTotals, totalMin) {
-                subjectPercentages.innerHTML = '';
-
-                if (totalMin === 0) {
-                    subjectPercentages.innerHTML = '<p class="text-xs subtext italic">Registre sessões para ver a porcentagem por matéria.</p>';
-                    return;
-                }
-
-                const subjectsArray = Object.values(subjectTotals).sort((a, b) => b.minutes - a.minutes);
-
-                subjectsArray.forEach((subj) => {
-                    const pct = Math.round((subj.minutes / totalMin) * 100);
-                    const item = document.createElement('div');
-                    item.className = 'space-y-1';
-                    item.innerHTML = `
-                        <div class="flex justify-between items-center text-xs">
-                            <span class="font-semibold text-slate-200 capitalize">${escapeHtml(subj.name)}</span>
-                            <span class="text-emerald-400 font-bold">${pct}% <span class="subtext font-normal text-[10px]">(${(subj.minutes / 60).toFixed(1)}h)</span></spa
+            functio
