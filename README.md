@@ -8,20 +8,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-body: #f8fafc;
-            --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-sub: #64748b;
-            --border-color: #e2e8f0;
-            --input-bg: #f1f5f9;
-        }
-        .dark-mode {
             --bg-body: #0f172a;
             --bg-card: #1e293b;
             --text-main: #f8fafc;
             --text-sub: #94a3b8;
             --border-color: #334155;
             --input-bg: #0f172a;
+        }
+        .light-mode {
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --border-color: #e2e8f0;
+            --input-bg: #f1f5f9;
         }
         body {
             background-color: var(--bg-body);
@@ -32,117 +32,119 @@
         .card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
         }
         .input-field {
             background-color: var(--input-bg);
             color: var(--text-main);
             border: 1px solid var(--border-color);
+            border-radius: 0.875rem;
         }
         .subtext {
             color: var(--text-sub);
         }
     </style>
 </head>
-<body class="min-h-screen pb-12">
+<body class="min-h-screen pb-10">
 
-    <!-- Header Superior -->
-    <header class="bg-indigo-600 text-white p-4 sticky top-0 z-50 shadow-md flex justify-between items-center">
-        <h1 class="text-lg font-bold flex items-center gap-2">
-            <i class="fa-solid fa-graduation-cap"></i> Meu Painel de Estudos
+    <!-- Cabeçalho limpo e sem travar a tela -->
+    <header class="bg-indigo-600 text-white px-5 py-4 shadow-md flex justify-between items-center rounded-b-2xl mb-5">
+        <h1 class="text-base font-bold flex items-center gap-2">
+            <i class="fa-solid fa-graduation-cap text-lg"></i> Meu Painel de Estudos
         </h1>
-        <button id="themeToggle" class="p-2 rounded-lg bg-indigo-700/50 hover:bg-indigo-700 transition">
-            <i class="fa-solid fa-moon text-lg" id="themeIcon"></i>
+        <button id="themeToggle" class="p-2 rounded-xl bg-indigo-700/60 hover:bg-indigo-700 transition active:scale-95">
+            <i class="fa-solid fa-sun text-amber-300 text-base" id="themeIcon"></i>
         </button>
     </header>
 
-    <main class="max-w-md mx-auto p-4 space-y-6">
+    <main class="max-w-md mx-auto px-4 space-y-4">
 
-        <!-- 1. PAINEL DE ESTATÍSTICAS E STREAK -->
-        <section class="card p-4 rounded-2xl shadow-sm">
-            <h2 class="text-sm font-semibold subtext uppercase tracking-wider mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-chart-line text-indigo-500"></i> Progresso
+        <!-- 1. ESTATÍSTICAS -->
+        <section class="card p-4 shadow-sm">
+            <h2 class="text-xs font-semibold subtext uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-chart-line text-indigo-400"></i> Progresso
             </h2>
             <div class="grid grid-cols-2 gap-3">
-                <div class="p-3 rounded-xl bg-indigo-500/10 text-center">
-                    <span class="block text-2xl font-bold text-indigo-500" id="statHours">0h</span>
-                    <span class="text-xs subtext font-medium">Tempo Estudado</span>
+                <div class="p-3 rounded-2xl bg-indigo-500/10 text-center border border-indigo-500/20">
+                    <span class="block text-2xl font-bold text-indigo-400" id="statHours">0h</span>
+                    <span class="text-xs subtext">Tempo Estudado</span>
                 </div>
-                <div class="p-3 rounded-xl bg-amber-500/10 text-center">
-                    <span class="block text-2xl font-bold text-amber-500" id="statStreak">0 🔥</span>
-                    <span class="text-xs subtext font-medium">Sequência (Dias)</span>
+                <div class="p-3 rounded-2xl bg-amber-500/10 text-center border border-amber-500/20">
+                    <span class="block text-2xl font-bold text-amber-400" id="statStreak">0 🔥</span>
+                    <span class="text-xs subtext">Sequência (Dias)</span>
                 </div>
             </div>
         </section>
 
-        <!-- 2. TEMPORIZADOR POMODORO -->
-        <section class="card p-6 rounded-2xl shadow-sm text-center">
-            <h2 class="text-sm font-semibold subtext uppercase tracking-wider mb-1 flex items-center justify-center gap-2">
-                <i class="fa-solid fa-clock text-indigo-500"></i> Cronômetro Pomodoro
+        <!-- 2. POMODORO -->
+        <section class="card p-5 shadow-sm text-center">
+            <h2 class="text-xs font-semibold subtext uppercase tracking-wider mb-1 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-clock text-indigo-400"></i> Cronômetro Pomodoro
             </h2>
-            <p id="timerStatus" class="text-xs font-semibold text-indigo-500 mb-2">MODO FOCO</p>
+            <p id="timerStatus" class="text-xs font-semibold text-indigo-400 mb-2">MODO FOCO</p>
             
-            <div class="text-5xl font-extrabold my-4 font-mono text-indigo-600 dark:text-indigo-400" id="timerDisplay">25:00</div>
+            <div class="text-5xl font-extrabold my-3 font-mono text-indigo-400 tracking-tight" id="timerDisplay">25:00</div>
 
-            <div class="flex justify-center gap-3 mb-5">
-                <button id="startBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-play"></i> Iniciar
+            <div class="flex justify-center gap-2 mb-4">
+                <button id="startBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-sm active:scale-95">
+                    <i class="fa-solid fa-play text-xs"></i> Iniciar
                 </button>
-                <button id="pauseBtn" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-6 py-2.5 rounded-xl transition hidden flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-pause"></i> Pausar
+                <button id="pauseBtn" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-6 py-2.5 rounded-xl transition hidden flex items-center gap-2 shadow-sm active:scale-95">
+                    <i class="fa-solid fa-pause text-xs"></i> Pausar
                 </button>
-                <button id="resetBtn" class="input-field px-4 py-2.5 rounded-xl transition">
-                    <i class="fa-solid fa-rotate-left"></i>
+                <button id="resetBtn" class="input-field px-4 py-2.5 rounded-xl transition active:scale-95">
+                    <i class="fa-solid fa-rotate-left text-xs"></i>
                 </button>
             </div>
 
-            <div class="grid grid-cols-3 gap-1.5 text-xs">
-                <button id="modePomodoro" class="py-2 bg-indigo-600 text-white font-semibold rounded-lg">Foco (25m)</button>
-                <button id="modeShort" class="py-2 input-field rounded-lg font-medium">Pausa (5m)</button>
-                <button id="modeLong" class="py-2 input-field rounded-lg font-medium">Pausa (15m)</button>
+            <div class="grid grid-cols-3 gap-2 text-xs">
+                <button id="modePomodoro" class="py-2 bg-indigo-600 text-white font-semibold rounded-xl">Foco (25m)</button>
+                <button id="modeShort" class="py-2 input-field rounded-xl font-medium">Pausa (5m)</button>
+                <button id="modeLong" class="py-2 input-field rounded-xl font-medium">Pausa (15m)</button>
             </div>
         </section>
 
-        <!-- 3. REGISTRO DE SESSÃO DE ESTUDO -->
-        <section class="card p-5 rounded-2xl shadow-sm">
-            <h2 class="text-sm font-semibold subtext uppercase tracking-wider mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-plus-circle text-indigo-500"></i> Registrar Estudo
+        <!-- 3. REGISTRO DE SESSÃO -->
+        <section class="card p-4 shadow-sm">
+            <h2 class="text-xs font-semibold subtext uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-plus-circle text-indigo-400"></i> Registrar Estudo
             </h2>
-            <form id="studyForm" class="space-y-3">
-                <input type="text" id="subjectInput" placeholder="Matéria (ex: Física)" required class="w-full p-3 rounded-xl input-field text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                <input type="text" id="topicInput" placeholder="Assunto (ex: Leis de Newton)" required class="w-full p-3 rounded-xl input-field text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                <input type="number" id="minutesInput" placeholder="Tempo dedicado (minutos)" min="1" required class="w-full p-3 rounded-xl input-field text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold p-3 rounded-xl transition flex justify-center items-center gap-2 text-sm">
+            <form id="studyForm" class="space-y-2.5">
+                <input type="text" id="subjectInput" placeholder="Matéria (ex: Física)" required class="w-full p-3 input-field text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <input type="text" id="topicInput" placeholder="Assunto (ex: Leis de Newton)" required class="w-full p-3 input-field text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <input type="number" id="minutesInput" placeholder="Tempo dedicado (minutos)" min="1" required class="w-full p-3 input-field text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold p-3 rounded-xl transition flex justify-center items-center gap-2 text-sm shadow-sm active:scale-95">
                     <i class="fa-solid fa-floppy-disk"></i> Salvar Sessão
                 </button>
             </form>
         </section>
 
-        <!-- 4. QUADRO DE TAREFAS / KANBAN COMPACTO -->
-        <section class="card p-5 rounded-2xl shadow-sm">
-            <h2 class="text-sm font-semibold subtext uppercase tracking-wider mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-list-check text-indigo-500"></i> Tópicos a Estudar
+        <!-- 4. QUADRO DE TAREFAS -->
+        <section class="card p-4 shadow-sm">
+            <h2 class="text-xs font-semibold subtext uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-list-check text-indigo-400"></i> Tópicos a Estudar
             </h2>
-            <form id="taskForm" class="flex gap-2 mb-4">
-                <input type="text" id="taskInput" placeholder="Nova tarefa ou tópico..." required class="flex-1 p-2.5 rounded-xl input-field text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                <button type="submit" class="bg-indigo-600 text-white px-4 rounded-xl text-sm font-semibold">
+            <form id="taskForm" class="flex gap-2 mb-3">
+                <input type="text" id="taskInput" placeholder="Nova tarefa ou tópico..." required class="flex-1 p-2.5 input-field text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 rounded-xl text-sm font-semibold transition active:scale-95">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </form>
             <div id="taskList" class="space-y-2 max-h-48 overflow-y-auto">
-                <!-- Tarefas adicionadas entram aqui -->
+                <!-- Tarefas entram aqui -->
             </div>
         </section>
 
-        <!-- 5. HISTÓRICO DE REVISÕES E LIMPEZA -->
-        <section class="card p-5 rounded-2xl shadow-sm">
+        <!-- 5. HISTÓRICO RECENTE -->
+        <section class="card p-4 shadow-sm">
             <div class="flex justify-between items-center mb-3">
-                <h2 class="text-sm font-semibold subtext uppercase tracking-wider flex items-center gap-2">
-                    <i class="fa-solid fa-history text-indigo-500"></i> Histórico Recente
+                <h2 class="text-xs font-semibold subtext uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-history text-indigo-400"></i> Histórico Recente
                 </h2>
-                <button id="clearLogsBtn" class="text-xs text-rose-500 hover:underline">Limpar</button>
+                <button id="clearLogsBtn" class="text-xs text-rose-400 hover:underline">Limpar</button>
             </div>
             <div id="logsList" class="space-y-2 max-h-52 overflow-y-auto">
-                <!-- Registros de sessões entram aqui -->
+                <!-- Histórico entra aqui -->
             </div>
         </section>
 
@@ -154,16 +156,16 @@
             const themeToggle = document.getElementById('themeToggle');
             const themeIcon = document.getElementById('themeIcon');
             
-            if (localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark-mode');
-                themeIcon.className = 'fa-solid fa-sun text-amber-400';
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-mode');
+                themeIcon.className = 'fa-solid fa-moon text-slate-100 text-base';
             }
 
             themeToggle.addEventListener('click', () => {
-                document.body.classList.toggle('dark-mode');
-                const isDark = document.body.classList.contains('dark-mode');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                themeIcon.className = isDark ? 'fa-solid fa-sun text-amber-400' : 'fa-solid fa-moon text-lg';
+                document.body.classList.toggle('light-mode');
+                const isLight = document.body.classList.contains('light-mode');
+                localStorage.setItem('theme', isLight ? 'light' : 'dark');
+                themeIcon.className = isLight ? 'fa-solid fa-moon text-slate-100 text-base' : 'fa-solid fa-sun text-amber-300 text-base';
             });
 
             // --- TEMPORIZADOR POMODORO ---
@@ -200,9 +202,9 @@
                 startBtn.classList.remove('hidden');
 
                 [modePomodoro, modeShort, modeLong].forEach(btn => {
-                    btn.className = "py-2 input-field rounded-lg font-medium";
+                    btn.className = "py-2 input-field rounded-xl font-medium";
                 });
-                activeBtn.className = "py-2 bg-indigo-600 text-white font-semibold rounded-lg";
+                activeBtn.className = "py-2 bg-indigo-600 text-white font-semibold rounded-xl";
             }
 
             modePomodoro.addEventListener('click', () => setMode(25 * 60, 'Modo Foco', modePomodoro));
@@ -262,10 +264,10 @@
                     item.className = 'p-3 rounded-xl input-field flex justify-between items-center text-xs';
                     item.innerHTML = `
                         <div>
-                            <strong class="text-indigo-500 block text-sm">${escapeHtml(log.subject)}</strong>
+                            <strong class="text-indigo-400 block text-sm">${escapeHtml(log.subject)}</strong>
                             <span class="subtext">${escapeHtml(log.topic)}</span>
                         </div>
-                        <span class="font-bold px-2 py-1 rounded bg-indigo-500/10 text-indigo-500">${log.minutes} min</span>
+                        <span class="font-bold px-2.5 py-1 rounded-lg bg-indigo-500/10 text-indigo-400">${log.minutes} min</span>
                     `;
                     logsList.appendChild(item);
                 });
@@ -320,8 +322,8 @@
                     item.innerHTML = `
                         <span class="${task.done ? 'line-through opacity-50' : ''}">${escapeHtml(task.title)}</span>
                         <div class="flex gap-2">
-                            <button onclick="toggleTask(${index})" class="text-emerald-500"><i class="fa-solid fa-check"></i></button>
-                            <button onclick="deleteTask(${index})" class="text-rose-500"><i class="fa-solid fa-trash"></i></button>
+                            <button onclick="toggleTask(${index})" class="text-emerald-400 p-1"><i class="fa-solid fa-check"></i></button>
+                            <button onclick="deleteTask(${index})" class="text-rose-400 p-1"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     `;
                     taskList.appendChild(item);
