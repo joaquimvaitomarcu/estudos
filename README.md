@@ -29,7 +29,6 @@
             transition: background-color 0.2s, color 0.2s;
             font-family: system-ui, -apple-system, sans-serif;
         }
-        /* Cantos super arredondados para visual de aplicativo mobile */
         .card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -48,7 +47,7 @@
 </head>
 <body class="min-h-screen pb-10">
 
-    <!-- Header Flutuante com Cantos Bem Arredondados -->
+    <!-- Header Flutuante -->
     <div class="px-4 pt-4 max-w-md mx-auto">
         <header class="bg-indigo-600 text-white px-5 py-4 shadow-lg flex justify-between items-center rounded-3xl">
             <h1 class="text-base font-bold flex items-center gap-2">
@@ -62,7 +61,7 @@
 
     <main class="max-w-md mx-auto p-4 space-y-4">
 
-        <!-- 1. ESTATÍSTICAS E PORCENTAGEM DE PROGRESSO -->
+        <!-- 1. ESTATÍSTICAS E META -->
         <section class="card p-5 shadow-sm space-y-4">
             <h2 class="text-xs font-semibold subtext uppercase tracking-wider flex items-center gap-2">
                 <i class="fa-solid fa-chart-line text-indigo-400"></i> Progresso Geral
@@ -79,7 +78,7 @@
                 </div>
             </div>
 
-            <!-- Aba de Porcentagem Concluída -->
+            <!-- Meta de Tarefas Concluídas -->
             <div class="p-4 rounded-2xl bg-slate-800/50 border border-slate-700/50 space-y-2">
                 <div class="flex justify-between items-center text-xs font-semibold">
                     <span class="subtext flex items-center gap-1.5">
@@ -87,13 +86,23 @@
                     </span>
                     <span class="text-emerald-400 text-sm font-bold" id="progressPercent">0%</span>
                 </div>
-                <div class="w-full bg-slate-700/60 h-3 rounded-full overflow-hidden p-0.5 border border-slate-600/30">
+                <div class="w-full bg-slate-700/60 h-2.5 rounded-full overflow-hidden p-0.5 border border-slate-600/30">
                     <div id="progressBar" class="bg-gradient-to-r from-indigo-500 to-emerald-400 h-full rounded-full transition-all duration-500 w-0"></div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. TEMPORIZADOR POMODORO -->
+        <!-- 2. PORCENTAGEM DE ESTUDO POR MATÉRIA -->
+        <section class="card p-5 shadow-sm space-y-3">
+            <h2 class="text-xs font-semibold subtext uppercase tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-chart-pie text-indigo-400"></i> Divisão por Matéria
+            </h2>
+            <div id="subjectPercentages" class="space-y-3">
+                <!-- Porcentagens calculadas entram aqui -->
+            </div>
+        </section>
+
+        <!-- 3. TEMPORIZADOR POMODORO -->
         <section class="card p-5 shadow-sm text-center">
             <h2 class="text-xs font-semibold subtext uppercase tracking-wider mb-1 flex items-center justify-center gap-2">
                 <i class="fa-solid fa-clock text-indigo-400"></i> Cronômetro Pomodoro
@@ -121,7 +130,7 @@
             </div>
         </section>
 
-        <!-- 3. REGISTRO DE SESSÃO -->
+        <!-- 4. REGISTRO DE SESSÃO -->
         <section class="card p-5 shadow-sm">
             <h2 class="text-xs font-semibold subtext uppercase tracking-wider mb-3 flex items-center gap-2">
                 <i class="fa-solid fa-plus-circle text-indigo-400"></i> Registrar Estudo
@@ -136,14 +145,14 @@
             </form>
         </section>
 
-        <!-- 4. QUADRO DE TAREFAS -->
+        <!-- 5. QUADRO DE TAREFAS (BOTÃO CORRIGIDO) -->
         <section class="card p-5 shadow-sm">
             <h2 class="text-xs font-semibold subtext uppercase tracking-wider mb-3 flex items-center gap-2">
                 <i class="fa-solid fa-list-check text-indigo-400"></i> Tópicos a Estudar
             </h2>
-            <form id="taskForm" class="flex gap-2 mb-3">
-                <input type="text" id="taskInput" placeholder="Novo tópico..." required class="flex-1 p-3 input-field text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 rounded-2xl text-sm font-semibold transition active:scale-95">
+            <form id="taskForm" class="flex items-center gap-2 mb-3 w-full">
+                <input type="text" id="taskInput" placeholder="Novo tópico..." required class="flex-1 min-w-0 p-3 input-field text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-3 rounded-2xl text-sm font-semibold transition active:scale-95 flex-shrink-0">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </form>
@@ -152,7 +161,7 @@
             </div>
         </section>
 
-        <!-- 5. HISTÓRICO RECENTE -->
+        <!-- 6. HISTÓRICO RECENTE -->
         <section class="card p-5 shadow-sm">
             <div class="flex justify-between items-center mb-3">
                 <h2 class="text-xs font-semibold subtext uppercase tracking-wider flex items-center gap-2">
@@ -265,9 +274,10 @@
                 startBtn.classList.remove('hidden');
             });
 
-            // --- REGISTRO DE SESSÕES & HISTÓRICO ---
+            // --- REGISTRO DE SESSÕES & CÁLCULO DE PORCENTAGEM POR MATÉRIA ---
             const studyForm = document.getElementById('studyForm');
             const logsList = document.getElementById('logsList');
+            const subjectPercentages = document.getElementById('subjectPercentages');
             const clearLogsBtn = document.getElementById('clearLogsBtn');
 
             function loadData() {
@@ -275,8 +285,21 @@
                 logsList.innerHTML = '';
                 
                 let totalMin = 0;
+                const subjectTotals = {};
+
                 logs.forEach((log) => {
-                    totalMin += parseInt(log.minutes) || 0;
+                    const min = parseInt(log.minutes) || 0;
+                    totalMin += min;
+
+                    // Normaliza o nome da matéria
+                    const subjKey = log.subject.trim().toLowerCase();
+                    const subjDisplayName = log.subject.trim();
+
+                    if (!subjectTotals[subjKey]) {
+                        subjectTotals[subjKey] = { name: subjDisplayName, minutes: 0 };
+                    }
+                    subjectTotals[subjKey].minutes += min;
+
                     const item = document.createElement('div');
                     item.className = 'p-3.5 rounded-2xl input-field flex justify-between items-center text-xs';
                     item.innerHTML = `
@@ -295,6 +318,37 @@
 
                 document.getElementById('statHours').textContent = `${(totalMin / 60).toFixed(1)}h`;
                 document.getElementById('statStreak').textContent = `${logs.length > 0 ? 1 : 0} 🔥`;
+
+                // Renderizar Porcentagens por Matéria
+                renderSubjectPercentages(subjectTotals, totalMin);
+            }
+
+            function renderSubjectPercentages(subjectTotals, totalMin) {
+                subjectPercentages.innerHTML = '';
+
+                if (totalMin === 0) {
+                    subjectPercentages.innerHTML = '<p class="text-xs subtext italic">Registre sessões para ver a porcentagem por matéria.</p>';
+                    return;
+                }
+
+                // Transforma em array e ordena pela matéria mais estudada
+                const subjectsArray = Object.values(subjectTotals).sort((a, b) => b.minutes - a.minutes);
+
+                subjectsArray.forEach((subj) => {
+                    const pct = Math.round((subj.minutes / totalMin) * 100);
+                    const item = document.createElement('div');
+                    item.className = 'space-y-1';
+                    item.innerHTML = `
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-semibold text-slate-200 capitalize">${escapeHtml(subj.name)}</span>
+                            <span class="text-indigo-400 font-bold">${pct}% <span class="subtext font-normal text-[10px]">(${(subj.minutes / 60).toFixed(1)}h)</span></span>
+                        </div>
+                        <div class="w-full bg-slate-700/50 h-2 rounded-full overflow-hidden">
+                            <div class="bg-indigo-500 h-full rounded-full transition-all duration-500" style="width: ${pct}%"></div>
+                        </div>
+                    `;
+                    subjectPercentages.appendChild(item);
+                });
             }
 
             function escapeHtml(text) {
@@ -324,7 +378,7 @@
                 }
             });
 
-            // --- TAREFAS & PORCENTAGEM ---
+            // --- TAREFAS ---
             const taskForm = document.getElementById('taskForm');
             const taskInput = document.getElementById('taskInput');
             const taskList = document.getElementById('taskList');
@@ -343,54 +397,4 @@
                         <span class="${task.done ? 'line-through opacity-50' : ''}">${escapeHtml(task.title)}</span>
                         <div class="flex gap-2">
                             <button onclick="toggleTask(${index})" class="text-emerald-400 p-1"><i class="fa-solid fa-check"></i></button>
-                            <button onclick="deleteTask(${index})" class="text-rose-400 p-1"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                    `;
-                    taskList.appendChild(item);
-                });
-
-                if (tasks.length === 0) {
-                    taskList.innerHTML = '<p class="text-xs subtext italic">Nenhuma tarefa pendente.</p>';
-                }
-
-                // Cálculo da porcentagem de progresso
-                const percent = tasks.length > 0 ? Math.round((completedCount / tasks.length) * 100) : 0;
-                document.getElementById('progressPercent').textContent = `${percent}%`;
-                document.getElementById('progressBar').style.width = `${percent}%`;
-            }
-
-            taskForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const title = taskInput.value.trim();
-                if (!title) return;
-
-                const tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
-                tasks.push({ title, done: false });
-                localStorage.setItem('studyTasks', JSON.stringify(tasks));
-
-                taskInput.value = '';
-                loadTasks();
-            });
-
-            window.toggleTask = (index) => {
-                const tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
-                tasks[index].done = !tasks[index].done;
-                localStorage.setItem('studyTasks', JSON.stringify(tasks));
-                loadTasks();
-            };
-
-            window.deleteTask = (index) => {
-                const tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
-                tasks.splice(index, 1);
-                localStorage.setItem('studyTasks', JSON.stringify(tasks));
-                loadTasks();
-            };
-
-            // Inicialização
-            updateDisplay();
-            loadData();
-            loadTasks();
-        });
-    </script>
-</body>
-</html>
+                            <button onclick="de
