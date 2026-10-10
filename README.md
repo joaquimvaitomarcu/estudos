@@ -1,493 +1,337 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Estudos</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-body: #0d110e;
-            --bg-card: #182017;
-            --text-main: #f1f5f2;
-            --text-sub: #8a9a86;
-            --border-color: #2a3828;
-            --input-bg: #111710;
-            --army-green: #4a5d3f;
-            --army-accent: #6b875b;
-            --emerald: #10b981;
-            --amber: #f59e0b;
-            --rose: #f43f5e;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            padding: 16px;
-            padding-bottom: 40px;
-        }
-
-        .container {
-            max-width: 440px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        header {
-            background-color: var(--army-green);
-            color: #ffffff;
-            padding: 16px 20px;
-            border-radius: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        header h1 {
-            font-size: 1rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .card-title {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-sub);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .stat-box {
-            padding: 14px;
-            border-radius: 16px;
-            text-align: center;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            background-color: rgba(16, 185, 129, 0.08);
-        }
-
-        .stat-val {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--emerald);
-        }
-
-        .stat-lbl {
-            font-size: 0.75rem;
-            color: var(--text-sub);
-        }
-
-        .timer-display {
-            font-size: 3.25rem;
-            font-weight: 800;
-            font-family: monospace;
-            color: var(--emerald);
-            text-align: center;
-            margin: 8px 0;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 12px 14px;
-            background-color: var(--input-bg);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            font-size: 0.875rem;
-            outline: none;
-        }
-
-        .input-field:focus {
-            border-color: var(--emerald);
-        }
-
-        .btn {
-            border: none;
-            padding: 12px 16px;
-            border-radius: 16px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: opacity 0.15s, transform 0.1s;
-        }
-
-        .btn:active {
-            transform: scale(0.97);
-        }
-
-        .btn-army {
-            background-color: var(--army-green);
-            color: #ffffff;
-        }
-
-        .btn-emerald {
-            background-color: var(--emerald);
-            color: #ffffff;
-        }
-
-        .btn-amber {
-            background-color: var(--amber);
-            color: #ffffff;
-        }
-
-        .btn-icon {
-            background-color: var(--input-bg);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-        }
-
-        .flex-gap {
-            display: flex;
-            gap: 8px;
-        }
-
-        .progress-bar-bg {
-            width: 100%;
-            height: 8px;
-            background-color: rgba(0,0,0,0.4);
-            border-radius: 999px;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background-color: var(--emerald);
-            width: 0%;
-            transition: width 0.3s;
-        }
-
-        .log-item, .task-item {
-            padding: 12px 14px;
-            background-color: var(--input-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8125rem;
-        }
-
-        .hidden { display: none !important; }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meu Painel de Estudos</title>
+<style>
+:root{--bg:#f1f4ef;--card:#fff;--card2:#eef3ec;--text:#18211a;--muted:#667466;--accent:#2f9e6b;--btn:#5a6b4d;--on-btn:#fff;--border:#d6dfd3;--danger:#d64545;--warm:#b8761b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1110;--card:#1b221b;--card2:#101410;--text:#e8eee8;--muted:#98a598;--accent:#4fb286;--btn:#4f5e45;--on-btn:#eef3ea;--border:#2a3a2a;--danger:#e0605e;--warm:#e8a33c}}
+:root[data-theme="dark"]{--bg:#0f1110;--card:#1b221b;--card2:#101410;--text:#e8eee8;--muted:#98a598;--accent:#4fb286;--btn:#4f5e45;--on-btn:#eef3ea;--border:#2a3a2a;--danger:#e0605e;--warm:#e8a33c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:560px;margin:0 auto;padding:16px 16px 56px}
+.hero{background:var(--btn);color:var(--on-btn);border-radius:28px;padding:26px 22px;margin-bottom:16px}
+.hero h1{margin:0;font-size:1.6rem;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.55)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:26px;padding:18px;margin-bottom:16px}
+.card h2{margin:0 0 14px;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;justify-content:space-between}
+.card h2 span.t{display:flex;gap:8px;align-items:center}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{background:var(--card2);border:1px solid var(--border);border-radius:18px;padding:18px 8px;text-align:center}
+.stat b{display:block;font-size:1.7rem;color:var(--accent)}
+.stat.fire b{color:var(--warm)}
+.stat small{color:var(--muted)}
+.row{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem;margin:14px 0 6px}
+.row b{color:var(--accent)}
+.bar{height:10px;background:var(--card2);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .3s}
+input,select{width:100%;padding:13px 16px;font-size:1rem;color:var(--text);background:var(--card2);border:1px solid var(--border);border-radius:18px;margin-bottom:10px}
+input::placeholder{color:var(--muted)}
+button{font:inherit;cursor:pointer;border:0;border-radius:18px;padding:13px 18px;font-weight:600;background:var(--btn);color:var(--on-btn)}
+button.pri{background:var(--accent);color:#08130d}
+button.ghost{background:var(--card2);color:var(--text);border:1px solid var(--border)}
+button.full{width:100%}
+.clock{text-align:center;font-size:4.2rem;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;margin:18px 0}
+.btns{display:flex;gap:10px;justify-content:center}
+.add{display:flex;gap:10px}.add input{margin:0;flex:1}
+.subj{margin-bottom:12px}.subj .h{display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:5px}
+.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--border)}
+.item:first-of-type{border-top:0}
+.item .i{flex:1;min-width:0;overflow-wrap:anywhere}
+.item small{color:var(--muted);display:block}
+.item.done .i{text-decoration:line-through;color:var(--muted)}
+.item input[type=checkbox]{width:22px;height:22px;margin:0;flex:none;accent-color:var(--accent)}
+.x{background:none;color:var(--danger);padding:4px 8px;font-size:1.1rem}
+.link{background:none;color:var(--danger);padding:0;font-size:.85rem;text-transform:none;letter-spacing:0}
+.empty{color:var(--muted);font-style:italic;margin:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini{width:84px;padding:6px 10px;margin:0 6px;border-radius:12px;text-align:center;display:inline-block}
+.week{display:flex;align-items:flex-end;gap:8px;height:150px}
+.wc{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:.7rem;color:var(--muted);min-width:0}
+.wc em{font-style:normal;margin-bottom:3px;white-space:nowrap;font-size:.65rem}
+.wc i{display:block;width:100%;border-radius:8px 8px 4px 4px;background:var(--btn);min-height:3px}
+.wc i.hit{background:var(--accent)}
+.wc span{margin-top:5px}
+.leg{font-size:.8rem;color:var(--muted);margin:12px 0 0}
+#weekTot{text-transform:none;letter-spacing:0;color:var(--accent)}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--text);color:var(--bg);padding:10px 18px;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .25s;max-width:90%;text-align:center}
+#toast.on{opacity:1}
+</style>
 </head>
 <body>
+<main>
+  <div class="hero"><h1>🎓 Meu Painel de Estudos</h1></div>
 
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <h1><i class="fa-solid fa-graduation-cap"></i> Meu Painel de Estudos</h1>
-        </header>
-
-        <!-- Progresso -->
-        <section class="card">
-            <div class="card-title"><i class="fa-solid fa-chart-line" style="color:var(--emerald)"></i> Progresso Geral</div>
-            <div class="grid-2">
-                <div class="stat-box">
-                    <span class="stat-val" id="statHours">0h</span>
-                    <span class="stat-lbl">Tempo Estudado</span>
-                </div>
-                <div class="stat-box" style="border-color:rgba(245,158,11,0.2); background:rgba(245,158,11,0.08);">
-                    <span class="stat-val" id="statStreak" style="color:var(--amber)">0 🔥</span>
-                    <span class="stat-lbl">Sequência (Dias)</span>
-                </div>
-            </div>
-            <div>
-                <div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:6px;">
-                    <span style="color:var(--text-sub)">Meta de Tópicos</span>
-                    <span id="progressPercent" style="color:var(--emerald); font-weight:700">0%</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div id="progressBar" class="progress-bar-fill"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Divisão por Matéria -->
-        <section class="card">
-            <div class="card-title"><i class="fa-solid fa-chart-pie" style="color:var(--emerald)"></i> Divisão por Matéria</div>
-            <div id="subjectPercentages" style="display:flex; flex-direction:column; gap:10px;">
-                <p style="font-size:0.75rem; color:var(--text-sub); font-style:italic;">Nenhum registo ainda.</p>
-            </div>
-        </section>
-
-        <!-- Cronómetro de Estudo -->
-        <section class="card" style="text-align:center;">
-            <div class="card-title" style="justify-content:center;"><i class="fa-solid fa-stopwatch" style="color:var(--emerald)"></i> Cronómetro de Estudo</div>
-            
-            <div style="display:flex; flex-direction:column; gap:8px; text-align:left;">
-                <input type="text" id="timerSubject" placeholder="Matéria (ex: Matemática)" class="input-field">
-                <input type="text" id="timerTopic" placeholder="Assunto (ex: Trigonometria)" class="input-field">
-            </div>
-
-            <div class="timer-display" id="timerDisplay">25:00</div>
-
-            <div class="flex-gap" style="justify-content:center;">
-                <button id="startBtn" class="btn btn-army"><i class="fa-solid fa-play"></i> Iniciar</button>
-                <button id="pauseBtn" class="btn btn-amber hidden"><i class="fa-solid fa-pause"></i> Pausar</button>
-                <button id="finishBtn" class="btn btn-emerald"><i class="fa-solid fa-check"></i> Salvar</button>
-                <button id="resetBtn" class="btn btn-icon"><i class="fa-solid fa-rotate-left"></i></button>
-            </div>
-        </section>
-
-        <!-- Registo Manual -->
-        <section class="card">
-            <div class="card-title"><i class="fa-solid fa-plus-circle" style="color:var(--emerald)"></i> Registo Manual</div>
-            <form id="studyForm" style="display:flex; flex-direction:column; gap:10px;">
-                <input type="text" id="subjectInput" placeholder="Matéria (ex: História)" required class="input-field">
-                <input type="text" id="topicInput" placeholder="Assunto (ex: Brasil Colônia)" required class="input-field">
-                <input type="number" id="minutesInput" placeholder="Tempo (minutos)" min="1" required class="input-field">
-                <button type="submit" class="btn btn-army"><i class="fa-solid fa-floppy-disk"></i> Salvar Sessão</button>
-            </form>
-        </section>
-
-        <!-- Tópicos a Estudar -->
-        <section class="card">
-            <div class="card-title"><i class="fa-solid fa-list-check" style="color:var(--emerald)"></i> Tópicos a Estudar</div>
-            <form id="taskForm" class="flex-gap">
-                <input type="text" id="taskInput" placeholder="Novo tópico..." required class="input-field">
-                <button type="submit" class="btn btn-army"><i class="fa-solid fa-plus"></i></button>
-            </form>
-            <div id="taskList" style="display:flex; flex-direction:column; gap:8px;"></div>
-        </section>
-
-        <!-- Histórico -->
-        <section class="card">
-            <div style="display:flex; justify-between; align-items:center;">
-                <div class="card-title"><i class="fa-solid fa-history" style="color:var(--emerald)"></i> Histórico Recente</div>
-                <button id="clearLogsBtn" style="background:none; border:none; color:var(--rose); font-size:0.75rem; cursor:pointer;">Limpar</button>
-            </div>
-            <div id="logsList" style="display:flex; flex-direction:column; gap:8px;"></div>
-        </section>
+  <section class="card">
+    <h2><span class="t">📈 Progresso geral</span></h2>
+    <div class="stats">
+      <div class="stat"><b id="total">0h</b><small>Tempo estudado</small></div>
+      <div class="stat fire"><b id="streak">0 🔥</b><small>Sequência (dias)</small></div>
     </div>
+    <div class="row"><span>Meta de tópicos</span><b id="goalPct">0%</b></div>
+    <div class="bar"><i id="goalBar"></i></div>
+    <div class="row"><span>Meta diária:<input class="mini" id="goalIn" type="number" inputmode="numeric" min="1" max="1440">min</span><b id="dayPct">0%</b></div>
+    <div class="bar"><i id="dayBar"></i></div>
+    <p class="leg" id="dayTxt"></p>
+  </section>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            var timer = null;
-            var timeLeft = 25 * 60;
-            var elapsedTimeSeconds = 0;
-            var isRunning = false;
+  <section class="card">
+    <h2><span class="t">🥧 Divisão por matéria</span></h2>
+    <div id="split"></div>
+  </section>
 
-            var display = document.getElementById('timerDisplay');
-            var startBtn = document.getElementById('startBtn');
-            var pauseBtn = document.getElementById('pauseBtn');
-            var resetBtn = document.getElementById('resetBtn');
-            var finishBtn = document.getElementById('finishBtn');
+  <section class="card">
+    <h2><span class="t">📊 Últimos 7 dias</span><span id="weekTot"></span></h2>
+    <div class="week" id="week"></div>
+    <p class="leg">Barras claras = meta diária atingida.</p>
+  </section>
 
-            function updateDisplay() {
-                var m = Math.floor(timeLeft / 60);
-                var s = timeLeft % 60;
-                display.textContent = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
-            }
+  <section class="card">
+    <h2><span class="t">⏱ Cronômetro de estudo</span></h2>
+    <input id="tSubject" placeholder="Matéria (ex: Matemática)" maxlength="40">
+    <input id="tTopic" placeholder="Assunto (ex: Trigonometria)" maxlength="60">
+    <select id="dur" aria-label="Duração">
+      <option value="15">15 minutos</option><option value="25" selected>25 minutos</option>
+      <option value="45">45 minutos</option><option value="60">60 minutos</option>
+    </select>
+    <div class="clock" id="clock">25:00</div>
+    <div class="btns">
+      <button id="go">▶ Iniciar</button>
+      <button class="pri" id="saveT">✓ Salvar</button>
+      <button class="ghost" id="reset" aria-label="Reiniciar">↺</button>
+    </div>
+  </section>
 
-            startBtn.addEventListener('click', function() {
-                if (!isRunning) {
-                    isRunning = true;
-                    startBtn.classList.add('hidden');
-                    pauseBtn.classList.remove('hidden');
-                    timer = setInterval(function() {
-                        if (timeLeft > 0) {
-                            timeLeft--;
-                            elapsedTimeSeconds++;
-                            updateDisplay();
-                        } else {
-                            clearInterval(timer);
-                            isRunning = false;
-                            alert('Tempo finalizado!');
-                            saveTimerSession();
-                        }
-                    }, 1000);
-                }
-            });
+  <section class="card">
+    <h2><span class="t">➕ Registro manual</span></h2>
+    <input id="mSubject" placeholder="Matéria (ex: História)" maxlength="40">
+    <input id="mTopic" placeholder="Assunto (ex: Brasil Colônia)" maxlength="60">
+    <div class="two">
+      <input id="mMin" type="number" inputmode="numeric" min="1" placeholder="Tempo (minutos)">
+      <input id="mDate" type="date" aria-label="Data">
+    </div>
+    <button class="full" id="saveM">💾 Salvar sessão</button>
+  </section>
 
-            pauseBtn.addEventListener('click', function() {
-                clearInterval(timer);
-                isRunning = false;
-                pauseBtn.classList.add('hidden');
-                startBtn.classList.remove('hidden');
-            });
+  <section class="card">
+    <h2><span class="t">☑ Tópicos a estudar</span></h2>
+    <div class="add"><input id="newTopic" placeholder="Novo tópico..." maxlength="80"><button id="addTopic" aria-label="Adicionar">+</button></div>
+    <div id="topics" style="margin-top:10px"></div>
+  </section>
 
-            resetBtn.addEventListener('click', function() {
-                clearInterval(timer);
-                isRunning = false;
-                timeLeft = 25 * 60;
-                elapsedTimeSeconds = 0;
-                updateDisplay();
-                pauseBtn.classList.add('hidden');
-                startBtn.classList.remove('hidden');
-            });
+  <section class="card">
+    <h2><span class="t">🕘 Histórico recente</span><button class="link" id="clear">Limpar</button></h2>
+    <div id="history"></div>
+  </section>
 
-            finishBtn.addEventListener('click', function() {
-                if (elapsedTimeSeconds < 5) {
-                    alert('Deves estudar pelo menos alguns segundos para salvar.');
-                    return;
-                }
-                saveTimerSession();
-            });
+  <section class="card">
+    <h2><span class="t">💾 Backup dos dados</span></h2>
+    <div class="two"><button id="exp">⬇ Exportar</button><button class="ghost" id="imp">⬆ Importar</button></div>
+    <input type="file" id="file" accept=".json,application/json" hidden>
+    <p class="leg">Exporta um arquivo .json com tudo. Importe para restaurar ou levar seus dados para outro aparelho (os dados importados são somados aos atuais).</p>
+  </section>
+</main>
+<div id="toast"></div>
 
-            function saveTimerSession() {
-                var subj = document.getElementById('timerSubject').value.trim() || 'Geral';
-                var top = document.getElementById('timerTopic').value.trim() || 'Estudo com Cronómetro';
-                var mins = Math.max(1, Math.round(elapsedTimeSeconds / 60));
-                
-                saveLog(subj, top, mins);
-                
-                clearInterval(timer);
-                isRunning = false;
-                timeLeft = 25 * 60;
-                elapsedTimeSeconds = 0;
-                updateDisplay();
-                pauseBtn.classList.add('hidden');
-                startBtn.classList.remove('hidden');
-                document.getElementById('timerSubject').value = '';
-                document.getElementById('timerTopic').value = '';
-            }
+<script>
+const KEY = 'painel_estudos_v1';
+let S = { sessions: [], topics: [], goal: 120 };
+try { const r = JSON.parse(localStorage.getItem(KEY) || 'null'); if (r) S = { sessions: r.sessions || [], topics: r.topics || [], goal: r.goal > 0 ? r.goal : 120 }; } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+const iso = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+const todayISO = () => iso(new Date());
+const brDate = s => s.split('-').reverse().join('/');
+const fmtMin = m => { const h = Math.floor(m / 60), r = m % 60; return h + 'h' + (r ? ' ' + r + 'min' : ''); };
+const fmtShort = m => m < 60 ? m + 'min' : fmtMin(m);
+let tt;
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('on'), 2200); }
 
-            function saveLog(subj, top, mins) {
-                var logs = JSON.parse(localStorage.getItem('studyLogs') || '[]');
-                logs.unshift({ subject: subj, topic: top, minutes: mins });
-                localStorage.setItem('studyLogs', JSON.stringify(logs));
-                loadData();
-            }
+$('mDate').value = todayISO();
 
-            function loadData() {
-                var logs = JSON.parse(localStorage.getItem('studyLogs') || '[]');
-                var logsList = document.getElementById('logsList');
-                var subjectPercentages = document.getElementById('subjectPercentages');
-                logsList.innerHTML = '';
-                
-                var totalMin = 0;
-                var totals = {};
+function streak() {
+  const days = new Set(S.sessions.map(s => s.date));
+  const d = new Date();
+  if (!days.has(iso(d))) d.setDate(d.getDate() - 1);
+  let n = 0;
+  while (days.has(iso(d))) { n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
 
-                logs.forEach(function(l) {
-                    var m = parseInt(l.minutes) || 0;
-                    totalMin += m;
-                    var k = l.subject.toLowerCase();
-                    if (!totals[k]) totals[k] = { name: l.subject, minutes: 0 };
-                    totals[k].minutes += m;
+const COLORS = ['#4fb286', '#e8a33c', '#5b9bd5', '#c46fbf', '#d9695f', '#8fbf4d'];
 
-                    var item = document.createElement('div');
-                    item.className = 'log-item';
-                    item.innerHTML = '<div><strong style="color:var(--emerald); display:block;">' + escapeHtml(l.subject) + '</strong><span style="color:var(--text-sub);">' + escapeHtml(l.topic) + '</span></div><span style="font-weight:700; color:var(--emerald);">' + l.minutes + ' min</span>';
-                    logsList.appendChild(item);
-                });
+function render() {
+  const total = S.sessions.reduce((a, s) => a + s.min, 0);
+  $('total').textContent = fmtMin(total);
+  $('streak').textContent = streak() + ' 🔥';
 
-                if (logs.length === 0) {
-                    logsList.innerHTML = '<p style="font-size:0.75rem; color:var(--text-sub); font-style:italic;">Nenhum registo.</p>';
-                }
+  // meta diária
+  const dayMin = S.sessions.filter(s => s.date === todayISO()).reduce((a, s) => a + s.min, 0);
+  const dp = Math.min(100, Math.round(dayMin / S.goal * 100));
+  $('dayPct').textContent = dp + '%';
+  $('dayBar').style.width = dp + '%';
+  $('dayTxt').textContent = dayMin >= S.goal ? 'Meta de hoje concluída! 🎉 (' + fmtShort(dayMin) + ')' : 'Hoje: ' + fmtShort(dayMin) + ' • faltam ' + fmtShort(S.goal - dayMin);
+  if (document.activeElement !== $('goalIn')) $('goalIn').value = S.goal;
 
-                document.getElementById('statHours').textContent = (totalMin / 60).toFixed(1) + 'h';
-                document.getElementById('statStreak').textContent = (logs.length > 0 ? 1 : 0) + ' 🔥';
+  // últimos 7 dias
+  const names = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'], days = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const k = iso(d);
+    days.push({ n: names[d.getDay()], v: S.sessions.filter(s => s.date === k).reduce((a, s) => a + s.min, 0) });
+  }
+  const mx = Math.max(S.goal, ...days.map(d => d.v), 1);
+  $('week').innerHTML = days.map(d => `<div class="wc"><em>${d.v ? fmtShort(d.v) : ''}</em><i class="${d.v >= S.goal ? 'hit' : ''}" style="height:${Math.max(3, d.v / mx * 90)}px"></i><span>${d.n}</span></div>`).join('');
+  $('weekTot').textContent = fmtMin(days.reduce((a, d) => a + d.v, 0));
 
-                // Porcentagens
-                subjectPercentages.innerHTML = '';
-                if (totalMin === 0) {
-                    subjectPercentages.innerHTML = '<p style="font-size:0.75rem; color:var(--text-sub); font-style:italic;">Nenhum registo.</p>';
-                } else {
-                    Object.values(totals).forEach(function(s) {
-                        var pct = Math.round((s.minutes / totalMin) * 100);
-                        var div = document.createElement('div');
-                        div.innerHTML = '<div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:4px;"><span style="font-weight:600;">' + escapeHtml(s.name) + '</span><span style="color:var(--emerald); font-weight:700;">' + pct + '%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:' + pct + '%"></div></div>';
-                        subjectPercentages.appendChild(div);
-                    });
-                }
-            }
+  const done = S.topics.filter(t => t.done).length;
+  const pct = S.topics.length ? Math.round(done / S.topics.length * 100) : 0;
+  $('goalPct').textContent = pct + '%';
+  $('goalBar').style.width = pct + '%';
 
-            document.getElementById('studyForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                var subj = document.getElementById('subjectInput').value.trim();
-                var top = document.getElementById('topicInput').value.trim();
-                var mins = document.getElementById('minutesInput').value.trim();
-                saveLog(subj, top, mins);
-                this.reset();
-            });
+  // divisão por matéria
+  const by = {};
+  S.sessions.forEach(s => { by[s.subject] = (by[s.subject] || 0) + s.min; });
+  const entries = Object.entries(by).sort((a, b) => b[1] - a[1]);
+  $('split').innerHTML = entries.length ? entries.map(([k, v], i) =>
+    `<div class="subj"><div class="h"><span>${esc(k)}</span><span>${fmtShort(v)} • ${Math.round(v / total * 100)}%</span></div>
+     <div class="bar"><i style="width:${v / total * 100}%;background:${COLORS[i % COLORS.length]}"></i></div></div>`).join('')
+    : '<p class="empty">Nenhum registro ainda.</p>';
 
-            document.getElementById('clearLogsBtn').addEventListener('click', function() {
-                if (confirm('Apagar todo o histórico?')) {
-                    localStorage.removeItem('studyLogs');
-                    loadData();
-                }
-            });
+  // tópicos
+  $('topics').innerHTML = S.topics.length ? S.topics.map(t =>
+    `<div class="item${t.done ? ' done' : ''}"><input type="checkbox" data-t="${t.id}" ${t.done ? 'checked' : ''}>
+     <div class="i">${esc(t.text)}</div><button class="x" data-dt="${t.id}" aria-label="Excluir">✕</button></div>`).join('')
+    : '<p class="empty">Nenhum tópico ainda.</p>';
 
-            // Tarefas
-            function loadTasks() {
-                var tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
-                var taskList = document.getElementById('taskList');
-                taskList.innerHTML = '';
-                var done = 0;
+  // histórico
+  const hist = [...S.sessions].sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id)).slice(0, 12);
+  $('history').innerHTML = hist.length ? hist.map(s =>
+    `<div class="item"><div class="i"><b>${esc(s.subject)}</b>${s.topic ? ' — ' + esc(s.topic) : ''}<small>${brDate(s.date)} • ${fmtShort(s.min)}</small></div>
+     <button class="x" data-ds="${s.id}" aria-label="Excluir">✕</button></div>`).join('')
+    : '<p class="empty">Sem sessões registradas.</p>';
+}
 
-                tasks.forEach(function(t, i) {
-                    if (t.done) done++;
-                    var item = document.createElement('div');
-                    item.className = 'task-item';
-                    item.innerHTML = '<span style="' + (t.done ? 'text-decoration:line-through; opacity:0.5;' : '') + '">' + escapeHtml(t.title) + '</span><div style="display:flex; gap:8px;"><button onclick="toggleTask(' + i + ')" style="background:none; border:none; color:var(--emerald); cursor:pointer;"><i class="fa-solid fa-check"></i></button><button onclick="deleteTask(' + i + ')" style="background:none; border:none; color:var(--rose); cursor:pointer;"><i class="fa-solid fa-trash"></i></button></div>';
-                    taskList.appendChild(item);
-                });
+function addSession(subject, topic, min, date) {
+  S.sessions.push({ id: uid(), subject, topic, min, date });
+  save(); render();
+}
 
-                var pct = tasks.length > 0 ? Math.round((done / tasks.length) * 100) : 0;
-                document.getElementById('progressPercent').textContent = pct + '%';
-                document.getElementById('progressBar').style.width = pct + '%';
-            }
+// ---- cronômetro ----
+let dur = 1500, remaining = 1500, running = false, endAt = 0, iv = null;
+const clock = () => { const m = Math.floor(remaining / 60), s = remaining % 60; $('clock').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0'); document.title = running ? $('clock').textContent + ' • Estudos' : 'Meu Painel de Estudos'; };
+function tick() {
+  remaining = Math.max(0, Math.round((endAt - Date.now()) / 1000));
+  clock();
+  if (remaining === 0) { pause(); toast('⏰ Tempo concluído! Toque em Salvar.'); try { navigator.vibrate && navigator.vibrate(300); } catch (e) {} }
+}
+function pause() { running = false; clearInterval(iv); $('go').textContent = '▶ Iniciar'; clock(); }
+function start() { if (remaining === 0) return; running = true; endAt = Date.now() + remaining * 1000; iv = setInterval(tick, 250); $('go').textContent = '⏸ Pausar'; }
+$('go').onclick = () => running ? pause() : start();
+$('reset').onclick = () => { pause(); remaining = dur; clock(); };
+$('dur').onchange = e => { pause(); dur = remaining = parseInt(e.target.value, 10) * 60; clock(); };
+$('saveT').onclick = () => {
+  const subject = $('tSubject').value.trim();
+  const elapsed = dur - remaining;
+  if (!subject) return toast('Informe a matéria.');
+  if (elapsed < 60) return toast('Estude pelo menos 1 minuto para salvar.');
+  pause();
+  addSession(subject, $('tTopic').value.trim(), Math.round(elapsed / 60), todayISO());
+  remaining = dur; clock(); $('tTopic').value = '';
+  toast('Sessão salva ✓');
+};
 
-            document.getElementById('taskForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                var title = document.getElementById('taskInput').value.trim();
-                if (!title) return;
-                var tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
-                tasks.push({ title: title, done: false });
-                localStorage.setItem('studyTasks', JSON.stringify(tasks));
-                document.getElementById('taskInput').value = '';
-                loadTasks();
-            });
+// ---- registro manual ----
+$('saveM').onclick = () => {
+  const subject = $('mSubject').value.trim(), min = parseInt($('mMin').value, 10), date = $('mDate').value || todayISO();
+  if (!subject) return toast('Informe a matéria.');
+  if (!min || min < 1) return toast('Informe o tempo em minutos.');
+  addSession(subject, $('mTopic').value.trim(), min, date);
+  $('mTopic').value = ''; $('mMin').value = '';
+  toast('Sessão salva ✓');
+};
 
-            window.toggleTask = function(i) {
-                var tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
-                tasks[i].done = !tasks[i].done;
-                localStorage.setItem('studyTasks', JSON.stringify(tasks));
-                loadTasks();
-            };
+// ---- tópicos ----
+function addTopic() {
+  const text = $('newTopic').value.trim();
+  if (!text) return;
+  S.topics.push({ id: uid(), text, done: false });
+  $('newTopic').value = ''; save(); render();
+}
+$('addTopic').onclick = addTopic;
+$('newTopic').addEventListener('keydown', e => { if (e.key === 'Enter') addTopic(); });
 
-            window.deleteTask = function(i) {
-                var tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
-                tasks.splice(i, 1);
-                localStorage.setItem('studyTasks', JSON.stringify(tasks));
-                loadTasks();
-            };
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-dt],[data-ds]');
+  if (!b) return;
+  if (b.dataset.dt) S.topics = S.topics.filter(t => t.id !== b.dataset.dt);
+  if (b.dataset.ds) S.sessions = S.sessions.filter(s => s.id !== b.dataset.ds);
+  save(); render();
+});
+document.addEventListener('change', e => {
+  const id = e.target.dataset && e.target.dataset.t;
+  if (!id) return;
+  const t = S.topics.find(x => x.id === id);
+  if (t) { t.done = e.target.checked; save(); render(); }
+});
 
-            function escapeHtml(t) {
-                var d = document.createElement('div');
-                d.innerText = t;
+// ---- limpar histórico (toque duplo para confirmar) ----
+let armed = false, armT;
+$('clear').onclick = () => {
+  if (!armed) { armed = true; $('clear').textContent = 'Toque de novo para apagar tudo'; armT = setTimeout(() => { armed = false; $('clear').textContent = 'Limpar'; }, 3000); return; }
+  clearTimeout(armT); armed = false; $('clear').textContent = 'Limpar';
+  S.sessions = []; save(); render(); toast('Histórico apagado');
+};
+
+// ---- meta diária ----
+$('goalIn').onchange = e => {
+  const v = parseInt(e.target.value, 10);
+  if (v > 0) S.goal = Math.min(v, 1440);
+  save(); render();
+};
+
+// ---- backup ----
+$('exp').onclick = () => {
+  try {
+    const blob = new Blob([JSON.stringify(S, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'painel-estudos-' + todayISO() + '.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    toast('Backup exportado ✓');
+  } catch (e) { toast('Não foi possível exportar.'); }
+};
+$('imp').onclick = () => $('file').click();
+$('file').onchange = e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const d = JSON.parse(r.result);
+      if (!Array.isArray(d.sessions) || !Array.isArray(d.topics)) throw new Error('formato');
+      const ids = new Set(S.sessions.map(x => x.id)), tids = new Set(S.topics.map(x => x.id));
+      d.sessions.forEach(x => {
+        if (x && x.id && x.subject && x.min > 0 && x.date && !ids.has(x.id))
+          S.sessions.push({ id: String(x.id), subject: String(x.subject), topic: String(x.topic || ''), min: Number(x.min), date: String(x.date) });
+      });
+      d.topics.forEach(x => {
+        if (x && x.id && x.text && !tids.has(x.id)) S.topics.push({ id: String(x.id), text: String(x.text), done: !!x.done });
+      });
+      if (d.goal > 0) S.goal = d.goal;
+      save(); render(); toast('Backup importado ✓');
+    } catch (err) { toast('Arquivo inválido.'); }
+  };
+  r.readAsText(f);
+  e.target.value = '';
+};
+
+clock(); render();
+</script>
+</body>
+</html>
