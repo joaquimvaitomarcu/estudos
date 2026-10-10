@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Estudos</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -16,388 +15,479 @@
             --input-bg: #111710;
             --army-green: #4a5d3f;
             --army-accent: #6b875b;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
         }
-        .light-mode {
-            --bg-body: #f4f6f4;
-            --bg-card: #ffffff;
-            --text-main: #1b2419;
-            --text-sub: #52634d;
-            --border-color: #d2ded0;
-            --input-bg: #e9eee8;
-            --army-green: #3b4b32;
-            --army-accent: #4a5d3f;
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
+
         body {
             background-color: var(--bg-body);
             color: var(--text-main);
-            transition: background-color 0.2s, color 0.2s;
-            font-family: system-ui, -apple-system, sans-serif;
+            padding: 16px;
+            padding-bottom: 40px;
         }
+
+        .container {
+            max-width: 440px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        header {
+            background-color: var(--army-green);
+            color: #ffffff;
+            padding: 16px 20px;
+            border-radius: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 1.75rem;
+            border-radius: 24px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
+
+        .card-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-box {
+            padding: 14px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            background-color: rgba(16, 185, 129, 0.08);
+        }
+
+        .stat-val {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--emerald);
+        }
+
+        .stat-lbl {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+        }
+
+        .timer-display {
+            font-size: 3.25rem;
+            font-weight: 800;
+            font-family: monospace;
+            color: var(--emerald);
+            text-align: center;
+            margin: 8px 0;
+        }
+
         .input-field {
+            width: 100%;
+            padding: 12px 14px;
             background-color: var(--input-bg);
             color: var(--text-main);
             border: 1px solid var(--border-color);
-            border-radius: 1.25rem;
+            border-radius: 16px;
+            font-size: 0.875rem;
+            outline: none;
         }
-        .subtext {
-            color: var(--text-sub);
+
+        .input-field:focus {
+            border-color: var(--emerald);
         }
+
+        .btn {
+            border: none;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: opacity 0.15s, transform 0.1s;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
         .btn-army {
             background-color: var(--army-green);
             color: #ffffff;
         }
-        .btn-army:hover {
-            background-color: var(--army-accent);
+
+        .btn-emerald {
+            background-color: var(--emerald);
+            color: #ffffff;
         }
+
+        .btn-amber {
+            background-color: var(--amber);
+            color: #ffffff;
+        }
+
+        .btn-icon {
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .flex-gap {
+            display: flex;
+            gap: 8px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 8px;
+            background-color: rgba(0,0,0,0.4);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--emerald);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .log-item, .task-item {
+            padding: 12px 14px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8125rem;
+        }
+
+        .hidden { display: none !important; }
     </style>
 </head>
-<body class="min-h-screen pb-10">
+<body>
 
-    <!-- Header Flutuante -->
-    <div class="px-4 pt-4 max-w-md mx-auto">
-        <header class="btn-army text-white px-5 py-4 shadow-lg flex justify-between items-center rounded-3xl">
-            <h1 class="text-base font-bold flex items-center gap-2">
-                <i class="fa-solid fa-graduation-cap text-xl"></i> Meu Painel de Estudos
-            </h1>
-            <button id="themeToggle" type="button" class="p-2.5 rounded-2xl bg-black/30 hover:bg-black/40 transition active:scale-95">
-                <i class="fa-solid fa-sun text-amber-300 text-base" id="themeIcon"></i>
-            </button>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1><i class="fa-solid fa-graduation-cap"></i> Meu Painel de Estudos</h1>
         </header>
+
+        <!-- Progresso -->
+        <section class="card">
+            <div class="card-title"><i class="fa-solid fa-chart-line" style="color:var(--emerald)"></i> Progresso Geral</div>
+            <div class="grid-2">
+                <div class="stat-box">
+                    <span class="stat-val" id="statHours">0h</span>
+                    <span class="stat-lbl">Tempo Estudado</span>
+                </div>
+                <div class="stat-box" style="border-color:rgba(245,158,11,0.2); background:rgba(245,158,11,0.08);">
+                    <span class="stat-val" id="statStreak" style="color:var(--amber)">0 🔥</span>
+                    <span class="stat-lbl">Sequência (Dias)</span>
+                </div>
+            </div>
+            <div>
+                <div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:6px;">
+                    <span style="color:var(--text-sub)">Meta de Tópicos</span>
+                    <span id="progressPercent" style="color:var(--emerald); font-weight:700">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div id="progressBar" class="progress-bar-fill"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divisão por Matéria -->
+        <section class="card">
+            <div class="card-title"><i class="fa-solid fa-chart-pie" style="color:var(--emerald)"></i> Divisão por Matéria</div>
+            <div id="subjectPercentages" style="display:flex; flex-direction:column; gap:10px;">
+                <p style="font-size:0.75rem; color:var(--text-sub); font-style:italic;">Nenhum registo ainda.</p>
+            </div>
+        </section>
+
+        <!-- Cronómetro de Estudo -->
+        <section class="card" style="text-align:center;">
+            <div class="card-title" style="justify-content:center;"><i class="fa-solid fa-stopwatch" style="color:var(--emerald)"></i> Cronómetro de Estudo</div>
+            
+            <div style="display:flex; flex-direction:column; gap:8px; text-align:left;">
+                <input type="text" id="timerSubject" placeholder="Matéria (ex: Matemática)" class="input-field">
+                <input type="text" id="timerTopic" placeholder="Assunto (ex: Trigonometria)" class="input-field">
+            </div>
+
+            <div class="timer-display" id="timerDisplay">25:00</div>
+
+            <div class="flex-gap" style="justify-content:center;">
+                <button id="startBtn" class="btn btn-army"><i class="fa-solid fa-play"></i> Iniciar</button>
+                <button id="pauseBtn" class="btn btn-amber hidden"><i class="fa-solid fa-pause"></i> Pausar</button>
+                <button id="finishBtn" class="btn btn-emerald"><i class="fa-solid fa-check"></i> Salvar</button>
+                <button id="resetBtn" class="btn btn-icon"><i class="fa-solid fa-rotate-left"></i></button>
+            </div>
+        </section>
+
+        <!-- Registo Manual -->
+        <section class="card">
+            <div class="card-title"><i class="fa-solid fa-plus-circle" style="color:var(--emerald)"></i> Registo Manual</div>
+            <form id="studyForm" style="display:flex; flex-direction:column; gap:10px;">
+                <input type="text" id="subjectInput" placeholder="Matéria (ex: História)" required class="input-field">
+                <input type="text" id="topicInput" placeholder="Assunto (ex: Brasil Colônia)" required class="input-field">
+                <input type="number" id="minutesInput" placeholder="Tempo (minutos)" min="1" required class="input-field">
+                <button type="submit" class="btn btn-army"><i class="fa-solid fa-floppy-disk"></i> Salvar Sessão</button>
+            </form>
+        </section>
+
+        <!-- Tópicos a Estudar -->
+        <section class="card">
+            <div class="card-title"><i class="fa-solid fa-list-check" style="color:var(--emerald)"></i> Tópicos a Estudar</div>
+            <form id="taskForm" class="flex-gap">
+                <input type="text" id="taskInput" placeholder="Novo tópico..." required class="input-field">
+                <button type="submit" class="btn btn-army"><i class="fa-solid fa-plus"></i></button>
+            </form>
+            <div id="taskList" style="display:flex; flex-direction:column; gap:8px;"></div>
+        </section>
+
+        <!-- Histórico -->
+        <section class="card">
+            <div style="display:flex; justify-between; align-items:center;">
+                <div class="card-title"><i class="fa-solid fa-history" style="color:var(--emerald)"></i> Histórico Recente</div>
+                <button id="clearLogsBtn" style="background:none; border:none; color:var(--rose); font-size:0.75rem; cursor:pointer;">Limpar</button>
+            </div>
+            <div id="logsList" style="display:flex; flex-direction:column; gap:8px;"></div>
+        </section>
     </div>
 
-    <main class="max-w-md mx-auto p-4 space-y-4">
-
-        <!-- ESTATÍSTICAS E META -->
-        <section class="card p-5 shadow-sm space-y-4">
-            <h2 class="text-xs font-semibold subtext uppercase tracking-wider flex items-center gap-2">
-                <i class="fa-solid fa-chart-line text-emerald-500"></i> Progresso Geral
-            </h2>
-            
-            <div class="grid grid-cols-2 gap-3">
-                <div class="p-3.5 rounded-2xl bg-emerald-500/10 text-center border border-emerald-500/20">
-                    <span class="block text-2xl font-bold text-emerald-400" id="statHours">0h</span>
-                    <span class="text-xs subtext font-medium">Tempo Estudado</span>
-                </div>
-                <div class="p-3.5 rounded-2xl bg-amber-500/10 text-center border border-amber-500/20">
-                    <span class="block text-2xl font-bold text-amber-400" id="statStreak">0 🔥</span>
-                    <span class="text-xs subtext font-medium">Sequência (Dias)</span>
-                </div>
-            </div>
-
-            <!-- Meta de Tarefas Concluídas -->
-            <div class="p-4 rounded-2xl bg-black/20 border border-white/5 space-y-2">
-                <div class="flex justify-between items-center text-xs font-semibold">
-                    <span class="subtext flex items-center gap-1.5">
-                        <i class="fa-solid fa-circle-check text-emerald-400"></i> Meta de Tópicos
-                    </span>
-                    <span class="text-emerald-400 text-sm font-bold" id="progressPercent">0%</span>
-                </div>
-                <div class="w-full bg-black/40 h-2.5 rounded-full overflow-hidden p-0.5 border border-white/5">
-                    <div id="progressBar" class="bg-gradient-to-r from-emerald-600 to-emerald-400 h-full rounded-full transition-all duration-500 w-0"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PORCENTAGEM DE ESTUDO POR MATÉRIA -->
-        <section class="card p-5 shadow-sm space-y-3">
-            <h2 class="text-xs font-semibold subtext uppercase tracking-wider flex items-center gap-2">
-                <i class="fa-solid fa-chart-pie text-emerald-500"></i> Divisão por Matéria
-            </h2>
-            <div id="subjectPercentages" class="space-y-3">
-                <p class="text-xs subtext italic">Registre sessões para ver a porcentagem por matéria.</p>
-            </div>
-        </section>
-
-        <!-- CRONÔMETRO DE ESTUDO -->
-        <section class="card p-5 shadow-sm text-center space-y-3">
-            <h2 class="text-xs font-semibold subtext uppercase tracking-wider flex items-center justify-center gap-2">
-                <i class="fa-solid fa-stopwatch text-emerald-500"></i> Cronômetro de Estudo
-            </h2>
-
-            <div class="space-y-2 text-left">
-                <input type="text" id="timerSubject" placeholder="Matéria (ex: Matemática)" class="w-full p-3 input-field text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                <input type="text" id="timerTopic" placeholder="Assunto (ex: Trigonometria)" class="w-full p-3 input-field text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500">
-            </div>
-
-            <p id="timerStatus" class="text-xs font-semibold text-emerald-400 pt-1">MODO FOCO</p>
-            
-            <div class="text-5xl font-extrabold my-2 font-mono text-emerald-400 tracking-tight" id="timerDisplay">25:00</div>
-
-            <div class="flex justify-center gap-2 mb-2">
-                <button id="startBtn" type="button" class="btn-army font-semibold px-5 py-3 rounded-2xl transition flex items-center gap-2 shadow-md active:scale-95 text-xs">
-                    <i class="fa-solid fa-play"></i> Iniciar
-                </button>
-                <button id="pauseBtn" type="button" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-5 py-3 rounded-2xl transition hidden flex items-center gap-2 shadow-md active:scale-95 text-xs">
-                    <i class="fa-solid fa-pause"></i> Pausar
-                </button>
-                <button id="finishBtn" type="button" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-3 rounded-2xl transition flex items-center gap-1.5 shadow-md active:scale-95 text-xs">
-                    <i class="fa-solid fa-check"></i> Salvar
-                </button>
-                <button id="resetBtn" type="button" class="input-field px-4 py-3 rounded-2xl transition active:scale-95 text-xs">
-                    <i class="fa-solid fa-rotate-left"></i>
-                </button>
-            </div>
-
-            <div class="grid grid-cols-3 gap-2 text-xs pt-1">
-                <button id="modePomodoro" type="button" class="py-2.5 btn-army font-semibold rounded-2xl">Foco (25m)</button>
-                <button id="modeShort" type="button" class="py-2.5 input-field rounded-2xl font-medium">Pausa (5m)</button>
-                <button id="modeLong" type="button" class="py-2.5 input-field rounded-2xl font-medium">Pausa (15m)</button>
-            </div>
-        </section>
-
-        <!-- REGISTRO MANUAL DE SESSÃO -->
-        <section class="card p-5 shadow-sm">
-            <h2 class="text-xs font-semibold subtext uppercase tracking-wider mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-plus-circle text-emerald-500"></i> Registro Manual
-            </h2>
-            <form id="studyForm" class="space-y-3">
-                <input type="text" id="subjectInput" placeholder="Matéria (ex: História)" required class="w-full p-3.5 input-field text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                <input type="text" id="topicInput" placeholder="Assunto (ex: Brasil Colônia)" required class="w-full p-3.5 input-field text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                <input type="number" id="minutesInput" placeholder="Tempo dedicado (minutos)" min="1" required class="w-full p-3.5 input-field text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                <button type="submit" class="w-full btn-army font-semibold p-3.5 rounded-2xl transition flex justify-center items-center gap-2 text-sm shadow-md active:scale-95">
-                    <i class="fa-solid fa-floppy-disk"></i> Salvar Sessão
-                </button>
-            </form>
-        </section>
-
-        <!-- QUADRO DE TAREFAS -->
-        <section class="card p-5 shadow-sm">
-            <h2 class="text-xs font-semibold subtext uppercase tracking-wider mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-list-check text-emerald-500"></i> Tópicos a Estudar
-            </h2>
-            <form id="taskForm" class="flex items-center gap-2 mb-3 w-full">
-                <input type="text" id="taskInput" placeholder="Novo tópico..." required class="flex-1 min-w-0 p-3 input-field text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                <button type="submit" class="btn-army px-4 py-3 rounded-2xl text-sm font-semibold transition active:scale-95 flex-shrink-0">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
-            </form>
-            <div id="taskList" class="space-y-2 max-h-48 overflow-y-auto">
-                <p class="text-xs subtext italic">Nenhuma tarefa pendente.</p>
-            </div>
-        </section>
-
-        <!-- HISTÓRICO RECENTE -->
-        <section class="card p-5 shadow-sm">
-            <div class="flex justify-between items-center mb-3">
-                <h2 class="text-xs font-semibold subtext uppercase tracking-wider flex items-center gap-2">
-                    <i class="fa-solid fa-history text-emerald-500"></i> Histórico Recente
-                </h2>
-                <button id="clearLogsBtn" type="button" class="text-xs text-rose-400 hover:underline">Limpar</button>
-            </div>
-            <div id="logsList" class="space-y-2 max-h-52 overflow-y-auto">
-                <p class="text-xs subtext italic">Nenhuma sessão registrada.</p>
-            </div>
-        </section>
-
-    </main>
-
     <script>
-        (function() {
-            // --- TEMA ESCURO / CLARO ---
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = document.getElementById('themeIcon');
-            
-            if (localStorage.getItem('theme') === 'light') {
-                document.body.classList.add('light-mode');
-                if (themeIcon) themeIcon.className = 'fa-solid fa-moon text-slate-100 text-base';
-            }
+        window.addEventListener('DOMContentLoaded', function() {
+            var timer = null;
+            var timeLeft = 25 * 60;
+            var elapsedTimeSeconds = 0;
+            var isRunning = false;
 
-            if (themeToggle) {
-                themeToggle.addEventListener('click', () => {
-                    document.body.classList.toggle('light-mode');
-                    const isLight = document.body.classList.contains('light-mode');
-                    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-                    if (themeIcon) {
-                        themeIcon.className = isLight ? 'fa-solid fa-moon text-slate-100 text-base' : 'fa-solid fa-sun text-amber-300 text-base';
-                    }
-                });
-            }
-
-            // --- CRONÔMETRO DE ESTUDO ---
-            let timer = null;
-            let currentModeTime = 25 * 60;
-            let timeLeft = currentModeTime;
-            let elapsedTimeSeconds = 0;
-            let isRunning = false;
-
-            const display = document.getElementById('timerDisplay');
-            const statusText = document.getElementById('timerStatus');
-            const startBtn = document.getElementById('startBtn');
-            const pauseBtn = document.getElementById('pauseBtn');
-            const resetBtn = document.getElementById('resetBtn');
-            const finishBtn = document.getElementById('finishBtn');
-
-            const timerSubject = document.getElementById('timerSubject');
-            const timerTopic = document.getElementById('timerTopic');
-
-            const modePomodoro = document.getElementById('modePomodoro');
-            const modeShort = document.getElementById('modeShort');
-            const modeLong = document.getElementById('modeLong');
+            var display = document.getElementById('timerDisplay');
+            var startBtn = document.getElementById('startBtn');
+            var pauseBtn = document.getElementById('pauseBtn');
+            var resetBtn = document.getElementById('resetBtn');
+            var finishBtn = document.getElementById('finishBtn');
 
             function updateDisplay() {
-                if (!display) return;
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                var m = Math.floor(timeLeft / 60);
+                var s = timeLeft % 60;
+                display.textContent = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
             }
 
-            function setMode(seconds, title, activeBtn) {
+            startBtn.addEventListener('click', function() {
+                if (!isRunning) {
+                    isRunning = true;
+                    startBtn.classList.add('hidden');
+                    pauseBtn.classList.remove('hidden');
+                    timer = setInterval(function() {
+                        if (timeLeft > 0) {
+                            timeLeft--;
+                            elapsedTimeSeconds++;
+                            updateDisplay();
+                        } else {
+                            clearInterval(timer);
+                            isRunning = false;
+                            alert('Tempo finalizado!');
+                            saveTimerSession();
+                        }
+                    }, 1000);
+                }
+            });
+
+            pauseBtn.addEventListener('click', function() {
                 clearInterval(timer);
                 isRunning = false;
-                currentModeTime = seconds;
-                timeLeft = seconds;
+                pauseBtn.classList.add('hidden');
+                startBtn.classList.remove('hidden');
+            });
+
+            resetBtn.addEventListener('click', function() {
+                clearInterval(timer);
+                isRunning = false;
+                timeLeft = 25 * 60;
                 elapsedTimeSeconds = 0;
-                if (statusText) statusText.textContent = title.toUpperCase();
                 updateDisplay();
-                
-                if (pauseBtn) pauseBtn.classList.add('hidden');
-                if (startBtn) startBtn.classList.remove('hidden');
+                pauseBtn.classList.add('hidden');
+                startBtn.classList.remove('hidden');
+            });
 
-                [modePomodoro, modeShort, modeLong].forEach(btn => {
-                    if (btn) btn.className = "py-2.5 input-field rounded-2xl font-medium";
-                });
-                if (activeBtn) activeBtn.className = "py-2.5 btn-army font-semibold rounded-2xl";
-            }
-
-            if (modePomodoro) modePomodoro.addEventListener('click', () => setMode(25 * 60, 'Modo Foco', modePomodoro));
-            if (modeShort) modeShort.addEventListener('click', () => setMode(5 * 60, 'Pausa Curta', modeShort));
-            if (modeLong) modeLong.addEventListener('click', () => setMode(15 * 60, 'Pausa Longa', modeLong));
-
-            if (startBtn) {
-                startBtn.addEventListener('click', () => {
-                    if (!isRunning) {
-                        isRunning = true;
-                        startBtn.classList.add('hidden');
-                        if (pauseBtn) pauseBtn.classList.remove('hidden');
-                        
-                        timer = setInterval(() => {
-                            if (timeLeft > 0) {
-                                timeLeft--;
-                                elapsedTimeSeconds++;
-                                updateDisplay();
-                            } else {
-                                clearInterval(timer);
-                                isRunning = false;
-                                alert('Tempo concluído!');
-                                saveTimerSession();
-                                startBtn.classList.remove('hidden');
-                                if (pauseBtn) pauseBtn.classList.add('hidden');
-                            }
-                        }, 1000);
-                    }
-                });
-            }
-
-            if (pauseBtn) {
-                pauseBtn.addEventListener('click', () => {
-                    clearInterval(timer);
-                    isRunning = false;
-                    pauseBtn.classList.add('hidden');
-                    if (startBtn) startBtn.classList.remove('hidden');
-                });
-            }
-
-            if (resetBtn) {
-                resetBtn.addEventListener('click', () => {
-                    clearInterval(timer);
-                    isRunning = false;
-                    timeLeft = currentModeTime;
-                    elapsedTimeSeconds = 0;
-                    updateDisplay();
-                    if (pauseBtn) pauseBtn.classList.add('hidden');
-                    if (startBtn) startBtn.classList.remove('hidden');
-                });
-            }
-
-            if (finishBtn) {
-                finishBtn.addEventListener('click', () => {
-                    if (elapsedTimeSeconds < 10) {
-                        alert('Estude ao menos alguns segundos para salvar a sessão!');
-                        return;
-                    }
-                    saveTimerSession();
-                });
-            }
+            finishBtn.addEventListener('click', function() {
+                if (elapsedTimeSeconds < 5) {
+                    alert('Deves estudar pelo menos alguns segundos para salvar.');
+                    return;
+                }
+                saveTimerSession();
+            });
 
             function saveTimerSession() {
-                const subject = (timerSubject && timerSubject.value.trim()) ? timerSubject.value.trim() : 'Estudo Geral';
-                const topic = (timerTopic && timerTopic.value.trim()) ? timerTopic.value.trim() : 'Sessão com Cronômetro';
-                const minutes = Math.max(1, Math.round(elapsedTimeSeconds / 60));
-
-                saveStudyLog(subject, topic, minutes);
-
+                var subj = document.getElementById('timerSubject').value.trim() || 'Geral';
+                var top = document.getElementById('timerTopic').value.trim() || 'Estudo com Cronómetro';
+                var mins = Math.max(1, Math.round(elapsedTimeSeconds / 60));
+                
+                saveLog(subj, top, mins);
+                
                 clearInterval(timer);
                 isRunning = false;
-                timeLeft = currentModeTime;
+                timeLeft = 25 * 60;
                 elapsedTimeSeconds = 0;
                 updateDisplay();
-                if (pauseBtn) pauseBtn.classList.add('hidden');
-                if (startBtn) startBtn.classList.remove('hidden');
-
-                if (timerSubject) timerSubject.value = '';
-                if (timerTopic) timerTopic.value = '';
+                pauseBtn.classList.add('hidden');
+                startBtn.classList.remove('hidden');
+                document.getElementById('timerSubject').value = '';
+                document.getElementById('timerTopic').value = '';
             }
 
-            // --- REGISTRO DE DADOS E NAVEGAÇÃO ---
-            const studyForm = document.getElementById('studyForm');
-            const logsList = document.getElementById('logsList');
-            const subjectPercentages = document.getElementById('subjectPercentages');
-            const clearLogsBtn = document.getElementById('clearLogsBtn');
-
-            function saveStudyLog(subject, topic, minutes) {
-                const logs = JSON.parse(localStorage.getItem('studyLogs') || '[]');
-                logs.unshift({ subject, topic, minutes, date: new Date().toLocaleDateString() });
+            function saveLog(subj, top, mins) {
+                var logs = JSON.parse(localStorage.getItem('studyLogs') || '[]');
+                logs.unshift({ subject: subj, topic: top, minutes: mins });
                 localStorage.setItem('studyLogs', JSON.stringify(logs));
                 loadData();
             }
 
             function loadData() {
-                const logs = JSON.parse(localStorage.getItem('studyLogs') || '[]');
-                if (!logsList) return;
+                var logs = JSON.parse(localStorage.getItem('studyLogs') || '[]');
+                var logsList = document.getElementById('logsList');
+                var subjectPercentages = document.getElementById('subjectPercentages');
                 logsList.innerHTML = '';
                 
-                let totalMin = 0;
-                const subjectTotals = {};
+                var totalMin = 0;
+                var totals = {};
 
-                logs.forEach((log) => {
-                    const min = parseInt(log.minutes) || 0;
-                    totalMin += min;
+                logs.forEach(function(l) {
+                    var m = parseInt(l.minutes) || 0;
+                    totalMin += m;
+                    var k = l.subject.toLowerCase();
+                    if (!totals[k]) totals[k] = { name: l.subject, minutes: 0 };
+                    totals[k].minutes += m;
 
-                    const subjKey = log.subject.trim().toLowerCase();
-                    const subjDisplayName = log.subject.trim();
-
-                    if (!subjectTotals[subjKey]) {
-                        subjectTotals[subjKey] = { name: subjDisplayName, minutes: 0 };
-                    }
-                    subjectTotals[subjKey].minutes += min;
-
-                    const item = document.createElement('div');
-                    item.className = 'p-3.5 rounded-2xl input-field flex justify-between items-center text-xs';
-                    item.innerHTML = `
-                        <div>
-                            <strong class="text-emerald-400 block text-sm">${escapeHtml(log.subject)}</strong>
-                            <span class="subtext">${escapeHtml(log.topic)}</span>
-                        </div>
-                        <span class="font-bold px-3 py-1 rounded-xl bg-emerald-500/10 text-emerald-400">${log.minutes} min</span>
-                    `;
+                    var item = document.createElement('div');
+                    item.className = 'log-item';
+                    item.innerHTML = '<div><strong style="color:var(--emerald); display:block;">' + escapeHtml(l.subject) + '</strong><span style="color:var(--text-sub);">' + escapeHtml(l.topic) + '</span></div><span style="font-weight:700; color:var(--emerald);">' + l.minutes + ' min</span>';
                     logsList.appendChild(item);
                 });
 
                 if (logs.length === 0) {
-                    logsList.innerHTML = '<p class="text-xs subtext italic">Nenhuma sessão registrada.</p>';
+                    logsList.innerHTML = '<p style="font-size:0.75rem; color:var(--text-sub); font-style:italic;">Nenhum registo.</p>';
                 }
 
-                const statHours = document.getElementById('statHours');
-                const statStreak = document.getElementById('statStreak');
-                if (statHours) statHours.textContent = `${(totalMin / 60).toFixed(1)}h`;
-                if (statStreak) statStreak.textContent = `${logs.length > 0 ? 1 : 0} 🔥`;
+                document.getElementById('statHours').textContent = (totalMin / 60).toFixed(1) + 'h';
+                document.getElementById('statStreak').textContent = (logs.length > 0 ? 1 : 0) + ' 🔥';
 
-                renderSubjectPercentages(subjectTotals, totalMin);
+                // Porcentagens
+                subjectPercentages.innerHTML = '';
+                if (totalMin === 0) {
+                    subjectPercentages.innerHTML = '<p style="font-size:0.75rem; color:var(--text-sub); font-style:italic;">Nenhum registo.</p>';
+                } else {
+                    Object.values(totals).forEach(function(s) {
+                        var pct = Math.round((s.minutes / totalMin) * 100);
+                        var div = document.createElement('div');
+                        div.innerHTML = '<div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:4px;"><span style="font-weight:600;">' + escapeHtml(s.name) + '</span><span style="color:var(--emerald); font-weight:700;">' + pct + '%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:' + pct + '%"></div></div>';
+                        subjectPercentages.appendChild(div);
+                    });
+                }
             }
 
-            functio
+            document.getElementById('studyForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                var subj = document.getElementById('subjectInput').value.trim();
+                var top = document.getElementById('topicInput').value.trim();
+                var mins = document.getElementById('minutesInput').value.trim();
+                saveLog(subj, top, mins);
+                this.reset();
+            });
+
+            document.getElementById('clearLogsBtn').addEventListener('click', function() {
+                if (confirm('Apagar todo o histórico?')) {
+                    localStorage.removeItem('studyLogs');
+                    loadData();
+                }
+            });
+
+            // Tarefas
+            function loadTasks() {
+                var tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
+                var taskList = document.getElementById('taskList');
+                taskList.innerHTML = '';
+                var done = 0;
+
+                tasks.forEach(function(t, i) {
+                    if (t.done) done++;
+                    var item = document.createElement('div');
+                    item.className = 'task-item';
+                    item.innerHTML = '<span style="' + (t.done ? 'text-decoration:line-through; opacity:0.5;' : '') + '">' + escapeHtml(t.title) + '</span><div style="display:flex; gap:8px;"><button onclick="toggleTask(' + i + ')" style="background:none; border:none; color:var(--emerald); cursor:pointer;"><i class="fa-solid fa-check"></i></button><button onclick="deleteTask(' + i + ')" style="background:none; border:none; color:var(--rose); cursor:pointer;"><i class="fa-solid fa-trash"></i></button></div>';
+                    taskList.appendChild(item);
+                });
+
+                var pct = tasks.length > 0 ? Math.round((done / tasks.length) * 100) : 0;
+                document.getElementById('progressPercent').textContent = pct + '%';
+                document.getElementById('progressBar').style.width = pct + '%';
+            }
+
+            document.getElementById('taskForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                var title = document.getElementById('taskInput').value.trim();
+                if (!title) return;
+                var tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
+                tasks.push({ title: title, done: false });
+                localStorage.setItem('studyTasks', JSON.stringify(tasks));
+                document.getElementById('taskInput').value = '';
+                loadTasks();
+            });
+
+            window.toggleTask = function(i) {
+                var tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
+                tasks[i].done = !tasks[i].done;
+                localStorage.setItem('studyTasks', JSON.stringify(tasks));
+                loadTasks();
+            };
+
+            window.deleteTask = function(i) {
+                var tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
+                tasks.splice(i, 1);
+                localStorage.setItem('studyTasks', JSON.stringify(tasks));
+                loadTasks();
+            };
+
+            function escapeHtml(t) {
+                var d = document.createElement('div');
+                d.innerText = t;
