@@ -1,0 +1,26 @@
+{
+  "background_color": "#ffffff",
+  "dir": "auto",
+  "display": "standalone",
+  "name": "joaquimvaitomarcu.github",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "joaquimvaitomarcu.github",
+  "start_url": "https://joaquimvaitomarcu.github.io/estudos/",
+  "theme_color": "#4f5e45",
+  "icons": [
+    {
+      "src": "https://joaquimvaitomarcu.github.io/estudos/icon-192.png",
+      "isSquare": false,
+      "isPng": true,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 0,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    }
+  ],
+  "id": "1",
+  "description": "app para estudos"
+}
